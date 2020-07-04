@@ -1,6 +1,7 @@
 import {useEffect} from 'react';
 
-const AppName = "GeThiDo";
+
+const AppName = 'GeThiDo';
 
 export default function useDocumentTitle(title) {
     useEffect(() => {

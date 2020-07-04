@@ -1,4 +1,16 @@
-import {LOGIN_USER, CHECK_USER, LOGOUT_USER, REGISTER_USER, UPDATE_USER, DELETE_USER,GET_SETTINGS, CHANGE_SETTINGS, GET_EMAILS, SET_EMAIL, DELETE_EMAIL} from '../actions/types';
+import {
+    LOGIN_USER,
+    CHECK_USER,
+    LOGOUT_USER,
+    REGISTER_USER,
+    UPDATE_USER,
+    DELETE_USER,
+    GET_SETTINGS,
+    CHANGE_SETTINGS,
+    GET_EMAILS,
+    SET_EMAIL,
+    DELETE_EMAIL
+} from '../actions/types';
 // import * as types from '../actions/types';
 
 const initialState = {

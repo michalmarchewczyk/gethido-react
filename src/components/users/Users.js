@@ -1,7 +1,7 @@
 import React from 'react';
-import {Switch, Route, Link, Redirect} from "react-router-dom";
-import RegisterForm from "./RegisterForm";
-import LoginForm from "./LoginForm";
+import {Switch, Route, Redirect} from 'react-router-dom';
+import RegisterForm from './RegisterForm';
+import LoginForm from './LoginForm';
 
 
 function Users() {
