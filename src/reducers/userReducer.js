@@ -23,19 +23,27 @@ export const userReducer = (state = initialState, action) => {
     switch (action.type) {
         case LOGIN_USER:
             return {
-                ...state
+                ...state,
+                logged: (!!action.payload.id),
+                errors: (action.payload.type)? [action.payload] : [],
             };
         case CHECK_USER:
             return {
-                ...state
+                ...state,
+                logged: !!action.payload.id,
+                user: action.payload,
             };
         case LOGOUT_USER:
             return {
-                ...state
+                ...state,
+                logged: false,
+                user: {},
+                errors: []
             };
         case REGISTER_USER:
             return {
-                ...state
+                ...state,
+                errors: action.payload,
             };
         case UPDATE_USER:
             return {
