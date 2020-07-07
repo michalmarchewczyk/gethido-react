@@ -1,12 +1,12 @@
 import React from 'react';
-import './Home.scss'
+import './Home.scss';
 import {Link} from 'react-router-dom';
 import {Container, Button, Typography} from '@material-ui/core';
 
 
 function Home() {
     return (
-        <React.Fragment>
+        <div className='Home'>
             <header>
                 <Container maxWidth='lg'>
                     <Typography variant='h5' component='span' id='logo'>
@@ -55,7 +55,7 @@ function Home() {
                     </Typography>
                 </Container>
             </footer>
-        </React.Fragment>
+        </div>
     );
 }
 

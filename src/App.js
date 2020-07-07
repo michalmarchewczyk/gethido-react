@@ -33,13 +33,14 @@ function App(props) {
                             <Users/>
                         </Route>
                         <Route path='/users'>
-                            {props.logged ? <Redirect to='/app'/> : ''}
-                            <Users/>
+                            {props.logged ? <Redirect to='/app'/> : <Users/>}
+                            
                         </Route>
                         <Route path='/app'>
-                            {(props.logged || props.logged === null)? "" : <Redirect to='/users'/>}
+                            {(props.logged)? <AppMain/> : ''}
+                            {(props.logged || props.logged === null)? '' : <Redirect to='/users'/>}
                             {/*{props.logged ? '' : <Redirect to='/users'/>}*/}
-                            <AppMain/>
+                            
                         </Route>
                         <Route path='/'>
                             <ThemeProvider theme={defaultTheme}>

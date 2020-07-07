@@ -10,11 +10,19 @@ const themes = {
             background: {
                 default: grey[200]
             }
+        },
+        zIndex: {
+            drawer: 1100,
+            appBar: 1200
         }
     },
     dark:{
         palette: {
             type: 'dark'
+        },
+        zIndex: {
+            drawer: 1100,
+            appBar: 1200
         }
     }
 };
