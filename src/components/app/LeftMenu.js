@@ -37,7 +37,7 @@ function LeftMenu(props) {
     
     return (
         <Drawer
-            variant='persistent'
+            variant='permanent'
             anchor='left'
             open={true}
             className={classes.drawer}

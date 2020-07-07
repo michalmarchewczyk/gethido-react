@@ -8,6 +8,8 @@ import {Box, Button, Container} from '@material-ui/core';
 import TopBar from './TopBar';
 import {makeStyles} from '@material-ui/styles';
 import LeftMenu from './LeftMenu';
+import TasksList from './TasksList';
+import Settings from './Settings';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -15,12 +17,12 @@ const useStyles = makeStyles((theme) => ({
         marginTop: 56,
         maxHeight: 'calc(100vh - 56px)',
         height: 'calc(100vh - 56px)',
-        [`@media (min-width: 0px) and (orientation: landscape)`]: {
+        ['@media (min-width: 0px) and (orientation: landscape)']: {
             marginTop: 48,
             maxHeight: 'calc(100vh - 48px)',
             height: 'calc(100vh - 48px)',
         },
-        [`@media (min-width: 600px)`]: {
+        ['@media (min-width: 600px)']: {
             marginTop: 64,
             maxHeight: 'calc(100vh - 64px)',
             height: 'calc(100vh - 64px)',
@@ -29,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
         overflowY: 'auto',
         width: 'auto',
         marginLeft: 60,
-        [`@media (min-width: 1400px)`]: {
+        ['@media (min-width: 1400px)']: {
             marginLeft: 'auto',
         },
         transition: 'margin-left 150ms cubic-bezier(0.4,0,0.6,1)',
@@ -37,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
     containerOpen: {
         marginLeft: 220,
         width: 'auto',
-        [`@media (min-width: 1720px)`]: {
+        ['@media (min-width: 1720px)']: {
             marginLeft: 'auto',
         },
         transition: 'margin-left 250ms cubic-bezier(0,0,0.2,1)',
@@ -51,6 +53,8 @@ function AppMain(props) {
     const classes = useStyles();
     
     const [drawer, setDrawer] = useState(false);
+    
+    const [stage, setStage] = useState('');
     
     const toggleDrawer = (openDrawer) => (event) => {
         if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
@@ -69,36 +73,40 @@ function AppMain(props) {
                 }}
                 toggleDrawer={toggleDrawer}
                 drawer={drawer}
+                stage={stage}
             />
             <LeftMenu toggleDrawer={toggleDrawer} drawer={drawer} className={classes.leftMenu}/>
             <Container className={[classes.container, (drawer ? classes.containerOpen : '')].join(' ')} maxWidth='lg'>
                 <Switch>
                     <Route path='/app/inbox'>
-                        <h2>Inbox</h2>
+                        <TasksList stage='inbox' setStage={setStage}/>
                     </Route>
                     <Route path='/app/trash'>
-                        <h2>Trash</h2>
+                        <TasksList stage='trash' setStage={setStage}/>
                     </Route>
                     <Route path='/app/someday'>
-                        <h2>Someday</h2>
+                        <TasksList stage='someday' setStage={setStage}/>
                     </Route>
                     <Route path='/app/reference'>
-                        <h2>Reference</h2>
+                        <TasksList stage='reference' setStage={setStage}/>
                     </Route>
-                    <Route path='/app/Next'>
-                        <h2>Next</h2>
+                    <Route path='/app/next'>
+                        <TasksList stage='next' setStage={setStage}/>
                     </Route>
                     <Route path='/app/waiting'>
-                        <h2>Waiting</h2>
+                        <TasksList stage='waiting' setStage={setStage}/>
                     </Route>
                     <Route path='/app/projects'>
-                        <h2>Projects</h2>
+                        <TasksList stage='projects' setStage={setStage}/>
                     </Route>
                     <Route path='/app/calendar'>
-                        <h2>Calendar</h2>
+                        <TasksList stage='calendar' setStage={setStage}/>
                     </Route>
                     <Route path='/app/completed'>
-                        <h2>Completed</h2>
+                        <TasksList stage='completed' setStage={setStage}/>
+                    </Route>
+                    <Route path='/app/settings'>
+                        <Settings setStage={setStage}/>
                     </Route>
                     <Route path='/app'>
                         <Redirect to='/app/inbox'/>

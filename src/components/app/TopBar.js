@@ -45,14 +45,14 @@ function TopBar(props) {
                         <MenuIcon/>
                     </IconButton>
                     <Typography variant='h6' className={classes.title}>
-                        GeThiDo
+                        {/*{`GeThiDo - ${props.stage.charAt(0).toUpperCase() + props.stage.slice(1)}`}*/}
+                        {props.stage.charAt(0).toUpperCase() + props.stage.slice(1)}
                     </Typography>
                     <div>
                         <IconButton onClick={handleMenu} color='inherit'>
                             <AccountCircle/>
                         </IconButton>
                         <Menu
-                            id='menu-appbar'
                             anchorEl={anchorEl}
                             anchorOrigin={{vertical: 'top', horizontal: 'right',}}
                             keepMounted
@@ -61,7 +61,9 @@ function TopBar(props) {
                             onClose={handleClose}
                         >
                             <MenuItem onClick={handleClose}>{props.user.username} - profile</MenuItem>
-                            <MenuItem onClick={handleClose}>Settings</MenuItem>
+                            <Link to='/app/settings'>
+                                <MenuItem onClick={handleClose}>Settings</MenuItem>
+                            </Link>
                             <Box mt={1}/>
                             <Divider/>
                             <Box mt={1}/>
