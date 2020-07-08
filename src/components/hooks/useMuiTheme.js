@@ -1,15 +1,17 @@
 import {createMuiTheme} from '@material-ui/core';
 import {useState} from 'react';
 import grey from '@material-ui/core/colors/grey';
+import blue from '@material-ui/core/colors/blue';
 
 
 const themes = {
     light: {
         palette: {
             type: 'light',
+            secondary: blue,
             background: {
                 default: grey[200]
-            }
+            },
         },
         zIndex: {
             drawer: 1100,
@@ -18,12 +20,13 @@ const themes = {
     },
     dark:{
         palette: {
-            type: 'dark'
+            type: 'dark',
+            secondary: blue,
         },
         zIndex: {
             drawer: 1100,
             appBar: 1200
-        }
+        },
     }
 };
 

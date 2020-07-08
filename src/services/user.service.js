@@ -68,6 +68,36 @@ const UserService = {
             .catch(err => {
                 return false;
             });
+    },
+    
+    getSettings: async () => {
+        return fetch(`${API_URL}/user/settings`, {
+            method: 'GET',
+            credentials: 'include'
+        })
+            .then(res => res.json())
+            .then(data => {
+                return data
+            })
+            .catch(err => {
+                return false
+            })
+    },
+    
+    setSettings: async ({newSettings}) => {
+        return fetch(`${API_URL}/user/settings`, {
+            method: 'PUT',
+            credentials: 'include',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({...newSettings}),
+        })
+            .then(res => res.json())
+            .then(data => {
+                return data
+            })
+            .catch(err => {
+                return false
+            })
     }
 };
 

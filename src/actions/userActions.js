@@ -88,16 +88,20 @@ export const deleteUser = ({password}) => dispatch => {
 };
 
 
-export const getSettings = () => dispatch => {
+export const getSettings = () => async dispatch => {
+    let data = await UserService.getSettings();
     dispatch({
         type: GET_SETTINGS,
+        payload: data,
     })
 };
 
 
-export const changeSettings = ({newSettings}) => dispatch => {
+export const changeSettings = (newSettings) => async dispatch => {
+    let data = await UserService.setSettings({newSettings});
     dispatch({
         type: CHANGE_SETTINGS,
+        payload: data,
     })
 };
 

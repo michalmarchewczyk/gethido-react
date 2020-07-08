@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {makeStyles} from '@material-ui/core/styles';
 import {AppBar, Toolbar, Typography, IconButton, MenuItem, Menu, Divider, Box} from '@material-ui/core';
-import {Menu as MenuIcon, AccountCircle} from '@material-ui/icons';
+import {Menu as MenuIcon, MoreVert as MoreVertIcon} from '@material-ui/icons';
 import {Link} from 'react-router-dom';
 
 import {connect} from 'react-redux';
@@ -16,9 +16,6 @@ const useStyles = makeStyles((theme) => ({
     },
     appBar: {
         zIndex: theme.zIndex.appBar,
-    },
-    leftMenu: {
-        zIndex: theme.zIndex.drawer,
     },
 }));
 
@@ -48,31 +45,32 @@ function TopBar(props) {
                         {/*{`GeThiDo - ${props.stage.charAt(0).toUpperCase() + props.stage.slice(1)}`}*/}
                         {props.stage.charAt(0).toUpperCase() + props.stage.slice(1)}
                     </Typography>
-                    <div>
-                        <IconButton onClick={handleMenu} color='inherit'>
-                            <AccountCircle/>
-                        </IconButton>
-                        <Menu
-                            anchorEl={anchorEl}
-                            anchorOrigin={{vertical: 'top', horizontal: 'right',}}
-                            keepMounted
-                            transformOrigin={{vertical: 'top', horizontal: 'right',}}
-                            open={open}
-                            onClose={handleClose}
-                        >
-                            <MenuItem onClick={handleClose}>{props.user.username} - profile</MenuItem>
-                            <Link to='/app/settings'>
-                                <MenuItem onClick={handleClose}>Settings</MenuItem>
-                            </Link>
-                            <Box mt={1}/>
-                            <Divider/>
-                            <Box mt={1}/>
-                            <MenuItem onClick={() => {
-                                handleClose();
-                                props.logoutUser();
-                            }}>Logout</MenuItem>
-                        </Menu>
-                    </div>
+                    <IconButton edge='end' onClick={handleMenu} color='inherit'>
+                        <MoreVertIcon/>
+                    </IconButton>
+                    <Menu
+                        anchorEl={anchorEl}
+                        anchorOrigin={{vertical: 'top', horizontal: 'right',}}
+                        keepMounted
+                        transformOrigin={{vertical: 'top', horizontal: 'right',}}
+                        open={open}
+                        onClose={handleClose}
+                    >
+                        {/*<MenuItem onClick={handleClose}>{props.user.username} - profile</MenuItem>*/}
+                        <Link to='/app/profile'>
+                            <MenuItem onClick={handleClose}>My account</MenuItem>
+                        </Link>
+                        <Link to='/app/settings'>
+                            <MenuItem onClick={handleClose}>Settings</MenuItem>
+                        </Link>
+                        <Box mt={1}/>
+                        <Divider/>
+                        <Box mt={1}/>
+                        <MenuItem onClick={() => {
+                            handleClose();
+                            props.logoutUser();
+                        }}>Logout</MenuItem>
+                    </Menu>
                 </Toolbar>
             </AppBar>
 

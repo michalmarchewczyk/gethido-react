@@ -1,7 +1,6 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {
     Paper,
-    Typography,
     List,
     ListSubheader,
     ListItem,
@@ -12,21 +11,23 @@ import {
     Box,
     Divider,
 } from '@material-ui/core';
-import {ChevronRight as ChevronRightIcon, Brightness4 as Brightness4Icon} from '@material-ui/icons';
-import useDocumentTitle from '../hooks/useDocumentTitle';
-import {Link} from 'react-router-dom';
+import {Brightness4 as Brightness4Icon} from '@material-ui/icons';
 import {makeStyles} from '@material-ui/core/styles';
+import SettingsLink from './SettingsLink';
+
+import {connect} from 'react-redux';
+import {changeSettings} from '../../actions/userActions';
+
 
 const useStyles = makeStyles((theme) => ({
-    red: {
-        color: theme.palette.error.main,
-    },
     subheader: {
         background: theme.palette.background.paper,
+        borderRadius: theme.shape.borderRadius,
     }
 }));
 
-function SettingsList() {
+
+function SettingsList(props) {
     
     const classes = useStyles();
     
@@ -42,7 +43,7 @@ function SettingsList() {
                                 </ListItemIcon>
                                 <ListItemText primary='Dark mode'/>
                                 <ListItemSecondaryAction>
-                                    <Switch edge='end'/>
+                                    <Switch edge='end' checked={(props.settings && props.settings.darkTheme)? true : false} onChange={() => {props.changeSettings({darkTheme: !(props.settings && props.settings.darkTheme)})}}/>
                                 </ListItemSecondaryAction>
                             </ListItem>
                         </List>
@@ -50,53 +51,18 @@ function SettingsList() {
                     <Divider/>
                     <Box my={1}>
                         <List subheader={<ListSubheader className={classes.subheader}>Emails</ListSubheader>}>
-                            <Link to='/app/settings/emails/view'>
-                                <ListItem button>
-                                    <ListItemText primary='View current inbox email addresses' />
-                                    <ChevronRightIcon/>
-                                </ListItem>
-                            </Link>
-                            <Link to='/app/settings/emails/set'>
-                                <ListItem button>
-                                    <ListItemText primary='Generate new inbox email address' />
-                                    <ChevronRightIcon/>
-                                </ListItem>
-                            </Link>
-                            <Link to='/app/settings/emails/delete'>
-                                <ListItem button>
-                                    <ListItemText primary='Delete existing inbox email address' />
-                                    <ChevronRightIcon/>
-                                </ListItem>
-                            </Link>
+                            <SettingsLink to='/app/settings/emails/view' text='View current inbox email addresses'/>
+                            <SettingsLink to='/app/settings/emails/set' text='Generate new inbox email address'/>
+                            <SettingsLink to='/app/settings/emails/delete' text='Delete existing inbox email address'/>
                         </List>
                     </Box>
                     <Divider/>
                     <Box my={1}>
                         <List subheader={<ListSubheader className={classes.subheader}>User</ListSubheader>}>
-                            <Link to='/app/settings/username'>
-                                <ListItem button>
-                                    <ListItemText primary='Change username' />
-                                    <ChevronRightIcon/>
-                                </ListItem>
-                            </Link>
-                            <Link to='/app/settings/email'>
-                                <ListItem button>
-                                    <ListItemText primary='Change email address' />
-                                    <ChevronRightIcon/>
-                                </ListItem>
-                            </Link>
-                            <Link to='/app/settings/password'>
-                                <ListItem button>
-                                    <ListItemText primary='Change password' />
-                                    <ChevronRightIcon/>
-                                </ListItem>
-                            </Link>
-                            <Link to='/app/settings/delete'>
-                                <ListItem button>
-                                    <ListItemText primary='Delete account'  className={classes.red}/>
-                                    <ChevronRightIcon/>
-                                </ListItem>
-                            </Link>
+                            <SettingsLink to='/app/settings/username' text='Change username'/>
+                            <SettingsLink to='/app/settings/email' text='Change email address'/>
+                            <SettingsLink to='/app/settings/password' text='Change password'/>
+                            <SettingsLink to='/app/settings/delete' text='Delete account' red={true}/>
                         </List>
                     </Box>
                 </Paper>
@@ -105,4 +71,8 @@ function SettingsList() {
     );
 }
 
-export default SettingsList;
+const mapStateToProps = state => ({
+   settings: state.user.user.settings
+});
+
+export default connect(mapStateToProps, {changeSettings})(SettingsList);

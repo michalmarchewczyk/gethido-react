@@ -7,21 +7,37 @@ import AppMain from './components/app/AppMain';
 import Users from './components/users/Users';
 
 import {connect} from 'react-redux';
-import {checkUser} from './actions/userActions';
+import {checkUser, getSettings} from './actions/userActions';
 
 import useMuiTheme from './components/hooks/useMuiTheme';
 import {ThemeProvider} from '@material-ui/styles';
 
 
 function App(props) {
+    const {logged, settings, checkUser, getSettings} = props;
     // const [defaultTheme, setDefaultTheme] = useMuiTheme();
     const [defaultTheme] = useMuiTheme();
-    // const [theme, setTheme] = useMuiTheme();
-    const [theme] = useMuiTheme();
+    const [theme, setTheme] = useMuiTheme();
+    // const [theme] = useMuiTheme();
     
     useEffect(() => {
-        props.checkUser();
-    });
+        checkUser();
+    }, [logged, checkUser]);
+    
+    useEffect(() => {
+        getSettings();
+    }, [logged, getSettings]);
+    
+    useEffect(() => {
+        if(settings) {
+            if (settings.darkTheme) {
+                setTheme('dark');
+            } else {
+                setTheme('light');
+            }
+        }
+    }, [settings]);
+    
     
     return (
         <div className='App'>
@@ -57,6 +73,7 @@ function App(props) {
 
 const mapStateToProps = state => ({
     logged: state.user.logged,
+    settings: state.user.user.settings,
 });
 
-export default connect(mapStateToProps, {checkUser})(App);
+export default connect(mapStateToProps, {checkUser, getSettings})(App);

@@ -2,9 +2,9 @@ import React, {useState} from 'react';
 import {Redirect, Route, Switch} from 'react-router-dom';
 
 import {connect} from 'react-redux';
-import {logoutUser} from '../../actions/userActions';
+import {logoutUser, getSettings} from '../../actions/userActions';
 
-import {Box, Button, Container} from '@material-ui/core';
+import {Container} from '@material-ui/core';
 import TopBar from './TopBar';
 import {makeStyles} from '@material-ui/styles';
 import LeftMenu from './LeftMenu';
@@ -17,12 +17,12 @@ const useStyles = makeStyles((theme) => ({
         marginTop: 56,
         maxHeight: 'calc(100vh - 56px)',
         height: 'calc(100vh - 56px)',
-        ['@media (min-width: 0px) and (orientation: landscape)']: {
+        '@media (min-width: 0px) and (orientation: landscape)': {
             marginTop: 48,
             maxHeight: 'calc(100vh - 48px)',
             height: 'calc(100vh - 48px)',
         },
-        ['@media (min-width: 600px)']: {
+        '@media (min-width: 600px)': {
             marginTop: 64,
             maxHeight: 'calc(100vh - 64px)',
             height: 'calc(100vh - 64px)',
@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
         overflowY: 'auto',
         width: 'auto',
         marginLeft: 60,
-        ['@media (min-width: 1400px)']: {
+        '@media (min-width: 1400px)': {
             marginLeft: 'auto',
         },
         transition: 'margin-left 150ms cubic-bezier(0.4,0,0.6,1)',
@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
     containerOpen: {
         marginLeft: 220,
         width: 'auto',
-        ['@media (min-width: 1720px)']: {
+        '@media (min-width: 1720px)': {
             marginLeft: 'auto',
         },
         transition: 'margin-left 250ms cubic-bezier(0,0,0.2,1)',
@@ -62,6 +62,7 @@ function AppMain(props) {
         }
         setDrawer(openDrawer);
     };
+
     
     return (
         <div>
@@ -105,6 +106,9 @@ function AppMain(props) {
                     <Route path='/app/completed'>
                         <TasksList stage='completed' setStage={setStage}/>
                     </Route>
+                    <Route path='/app/profile'>
+                        <h1>Profile</h1>
+                    </Route>
                     <Route path='/app/settings'>
                         <Settings setStage={setStage}/>
                     </Route>
@@ -121,4 +125,4 @@ const mapStateToProps = state => ({
     user: state.user.user
 });
 
-export default connect(mapStateToProps, {logoutUser})(AppMain);
+export default connect(mapStateToProps, {logoutUser, getSettings})(AppMain);

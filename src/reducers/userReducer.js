@@ -31,7 +31,7 @@ export const userReducer = (state = initialState, action) => {
             return {
                 ...state,
                 logged: !!action.payload.id,
-                user: action.payload,
+                user: (action.payload.id)? {...state.user, ...action.payload} : action.payload,
             };
         case LOGOUT_USER:
             return {
@@ -55,11 +55,25 @@ export const userReducer = (state = initialState, action) => {
             };
         case GET_SETTINGS:
             return {
-                ...state
+                ...state,
+                user: {
+                    ...state.user,
+                    settings: {
+                        ...state.user.settings,
+                        ...action.payload
+                    }
+                }
             };
         case CHANGE_SETTINGS:
             return {
-                ...state
+                ...state,
+                user: {
+                    ...state.user,
+                    settings: {
+                        ...state.user.settings,
+                        ...action.payload
+                    }
+                }
             };
         case GET_EMAILS:
             return {
