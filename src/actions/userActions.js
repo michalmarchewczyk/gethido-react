@@ -77,6 +77,8 @@ export const registerUser = ({username, email, password, repeatPassword}) => asy
 export const updateUser = ({oldPassword, newUsername, newEmail, newPassword, newRepeatPassword}) => async dispatch => {
     let data;
     if(newUsername) data = await UserService.update({oldPassword, newUsername});
+    if(newEmail) data = await UserService.update({oldPassword, newEmail});
+    if(newPassword && newRepeatPassword) data = await UserService.update({oldPassword, newPassword, newRepeatPassword});
     if(!data){
         dispatch({
             type: UPDATE_USER,

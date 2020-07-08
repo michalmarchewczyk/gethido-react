@@ -50,7 +50,7 @@ function SettingsUsername(props) {
                                             getError("userVal")||
                                             getError("userEx"))}
                                         label='New username'
-                                        name='login'
+                                        name='username'
                                         onChange={(e) => {
                                             setUsername(e.target.value)
                                         }}
@@ -73,7 +73,7 @@ function SettingsUsername(props) {
                                 </FormControl>
                             </Box>
                             <Box mt={3} display='flex' justifyContent='space-between'>
-                                <Link to='/users/login'>
+                                <Link to='/app/settings'>
                                     <Button>Cancel</Button>
                                 </Link>
                                 <Button type='submit' variant='contained' color='primary'>Change</Button>
