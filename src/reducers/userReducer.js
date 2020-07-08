@@ -46,8 +46,11 @@ export const userReducer = (state = initialState, action) => {
                 errors: action.payload,
             };
         case UPDATE_USER:
+            console.log(action.payload);
             return {
-                ...state
+                ...state,
+                errors: (action.payload)? action.payload : [],
+                logged: (action.payload && action.payload[0].type==='updateSuc')? false : state.logged,
             };
         case DELETE_USER:
             return {

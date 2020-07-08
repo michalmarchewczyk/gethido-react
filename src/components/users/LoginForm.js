@@ -18,11 +18,11 @@ function LoginForm(props) {
     };
     
     const getLoginError = (type) => {
-        let findError = props.errors.find(e => e.type===type);
-        if(findError && findError.msg){
+        let findError = props.errors.find(e => e.type === type);
+        if (findError && findError.msg) {
             return findError.msg;
-        }else{
-            return "";
+        } else {
+            return '';
         }
     };
     
@@ -39,8 +39,8 @@ function LoginForm(props) {
                     <Box mt={1}>
                         <FormControl fullWidth>
                             <TextField
-                                error={!!getLoginError("loginEx")}
-                                helperText={getLoginError("loginEx")}
+                                error={!!getLoginError('loginEx')}
+                                helperText={getLoginError('loginEx')}
                                 label='Username'
                                 name='username'
                                 onChange={(e) => {
@@ -49,8 +49,8 @@ function LoginForm(props) {
                             />
                             <Box mt={1}/>
                             <TextField
-                                error={!!getLoginError("loginPass")}
-                                helperText={getLoginError("loginPass")}
+                                error={!!getLoginError('loginPass')}
+                                helperText={getLoginError('loginPass')}
                                 label='Password'
                                 type='password'
                                 name='password'

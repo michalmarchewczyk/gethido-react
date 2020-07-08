@@ -70,6 +70,22 @@ const UserService = {
             });
     },
     
+    update: async ({oldPassword, newUsername, newEmail, newPassword, newRepeatPassword}) => {
+        return fetch(`${API_URL}/user/update`, {
+            method: 'PUT',
+            credentials: 'include',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({oldPassword, newUsername, newEmail, newPassword, newRepeatPassword})
+        })
+            .then(res => res.json())
+            .then(data => {
+                return data
+            })
+            .catch(err => {
+                return false;
+            })
+    },
+    
     getSettings: async () => {
         return fetch(`${API_URL}/user/settings`, {
             method: 'GET',

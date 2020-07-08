@@ -20,17 +20,17 @@ function RegisterForm(props) {
     const [repeatPassword, setRepeatPassword] = useState('');
     
     const getRegisterError = (type) => {
-        let findError = props.errors.find(e => e.type===type);
-        if(findError && findError.msg){
+        let findError = props.errors.find(e => e.type === type);
+        if (findError && findError.msg) {
             return findError.msg;
-        }else{
-            return "";
+        } else {
+            return '';
         }
     };
     
     return (
         <Paper>
-            {props.errors[0] && props.errors[0].type==='success' ? <Redirect to='/users/ty'/> : ""}
+            {props.errors[0] && props.errors[0].type === 'success' ? <Redirect to='/users/ty'/> : ''}
             <Box p={2}>
                 <Typography variant='h5'>
                     Register
@@ -40,61 +40,69 @@ function RegisterForm(props) {
                         <FormControl fullWidth>
                             <TextField
                                 error={!!(
-                                    getRegisterError("userReq")||
-                                    getRegisterError("userLen")||
-                                    getRegisterError("userMax")||
-                                    getRegisterError("userVal")||
-                                    getRegisterError("userEx"))}
+                                    getRegisterError('userReq') ||
+                                    getRegisterError('userLen') ||
+                                    getRegisterError('userMax') ||
+                                    getRegisterError('userVal') ||
+                                    getRegisterError('userEx'))}
                                 helperText={(
-                                    getRegisterError("userReq")||
-                                    getRegisterError("userLen")||
-                                    getRegisterError("userMax")||
-                                    getRegisterError("userVal")||
-                                    getRegisterError("userEx"))}
-                                label="Username"
-                                name="login"
-                                onChange={(e) => {setUsername(e.target.value)}}
+                                    getRegisterError('userReq') ||
+                                    getRegisterError('userLen') ||
+                                    getRegisterError('userMax') ||
+                                    getRegisterError('userVal') ||
+                                    getRegisterError('userEx'))}
+                                label='Username'
+                                name='login'
+                                onChange={(e) => {
+                                    setUsername(e.target.value)
+                                }}
                             />
                             <Box mt={1}/>
                             <TextField
                                 error={!!(
-                                    getRegisterError("emailReq")||
-                                    getRegisterError("emailVal")||
-                                    getRegisterError("emailEx")
+                                    getRegisterError('emailReq') ||
+                                    getRegisterError('emailVal') ||
+                                    getRegisterError('emailEx')
                                 )}
                                 helperText={(
-                                    getRegisterError("emailReq")||
-                                    getRegisterError("emailVal")||
-                                    getRegisterError("emailEx")
+                                    getRegisterError('emailReq') ||
+                                    getRegisterError('emailVal') ||
+                                    getRegisterError('emailEx')
                                 )}
-                                label="Email address"
-                                type="email"
-                                name="email"
-                                onChange={(e) => {setEmail(e.target.value)}}
+                                label='Email address'
+                                type='email'
+                                name='email'
+                                onChange={(e) => {
+                                    setEmail(e.target.value)
+                                }}
                             />
                             <Box mt={1}/>
                             <TextField
                                 error={!!(
-                                    getRegisterError("passReq")||
-                                    getRegisterError("passLen")
+                                    getRegisterError('passReq') ||
+                                    getRegisterError('passLen')
                                 )}
                                 helperText={(
-                                    getRegisterError("passReq")||
-                                    getRegisterError("passLen")
+                                    getRegisterError('passReq') ||
+                                    getRegisterError('passLen')
                                 )}
-                                label="Password"
-                                type="password"
-                                name="password"
-                                onChange={(e) => {setPassword(e.target.value)}}
+                                label='Password'
+                                type='password'
+                                name='password'
+                                onChange={(e) => {
+                                    setPassword(e.target.value)
+                                }}
                             />
                             <Box mt={1}/>
                             <TextField
-                                error={!!getRegisterError("passMatch")}
-                                helperText={getRegisterError("passMatch")}
-                                label="Repeat password"
-                                type="password"
-                                name="repeatPassword"
-                                onChange={(e) => {setRepeatPassword(e.target.value)}}
+                                error={!!getRegisterError('passMatch')}
+                                helperText={getRegisterError('passMatch')}
+                                label='Repeat password'
+                                type='password'
+                                name='repeatPassword'
+                                onChange={(e) => {
+                                    setRepeatPassword(e.target.value)
+                                }}
                             />
                         </FormControl>
                     </Box>
