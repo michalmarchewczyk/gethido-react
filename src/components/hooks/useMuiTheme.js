@@ -18,7 +18,7 @@ const themes = {
             appBar: 1200
         }
     },
-    dark:{
+    dark: {
         palette: {
             type: 'dark',
             secondary: blue,
@@ -27,25 +27,41 @@ const themes = {
             drawer: 1100,
             appBar: 1200
         },
+    },
+    normalFont: {
+        typography: {
+            fontSize: 14
+        }
+    },
+    largeFont: {
+        typography: {
+            fontSize: 16
+        }
     }
 };
 
 
 export default function useMuiTheme() {
-    const [theme, _setTheme] = useState(createMuiTheme(themes.light));
+    const [theme, _setTheme] = useState(createMuiTheme({...themes.light, ...themes.normalFont}));
     
     
     const setTheme = (themeType) => {
         let t;
         switch (themeType) {
-            case 'light':
-                 t = createMuiTheme(themes.light);
+            case 'light-normal':
+                 t = createMuiTheme({...themes.light, ...themes.normalFont});
                  break;
-            case 'dark':
-                t = createMuiTheme(themes.dark);
+            case 'dark-normal':
+                t = createMuiTheme({...themes.dark, ...themes.normalFont});
+                break;
+            case 'light-large':
+                t = createMuiTheme({...themes.light, ...themes.largeFont});
+                break;
+            case 'dark-large':
+                t = createMuiTheme({...themes.dark, ...themes.largeFont});
                 break;
             default:
-                t = createMuiTheme(themes.light);
+                t = createMuiTheme({...themes.light, ...themes.normalFont});
         }
         
         _setTheme(t);

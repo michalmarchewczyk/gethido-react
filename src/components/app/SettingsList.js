@@ -11,7 +11,7 @@ import {
     Box,
     Divider,
 } from '@material-ui/core';
-import {Brightness4 as Brightness4Icon} from '@material-ui/icons';
+import {Brightness4 as Brightness4Icon, FormatSize as FormatSizeIcon} from '@material-ui/icons';
 import {makeStyles} from '@material-ui/core/styles';
 import SettingsLink from './SettingsLink';
 
@@ -43,7 +43,22 @@ function SettingsList(props) {
                                 </ListItemIcon>
                                 <ListItemText primary='Dark mode'/>
                                 <ListItemSecondaryAction>
-                                    <Switch edge='end' checked={(props.settings && props.settings.darkTheme)? true : false} onChange={() => {props.changeSettings({darkTheme: !(props.settings && props.settings.darkTheme)})}}/>
+                                    <Switch edge='end' checked={!!(props.settings && props.settings.darkTheme)}
+                                            onChange={() => {
+                                                props.changeSettings({darkTheme: !(props.settings && props.settings.darkTheme)})
+                                            }}/>
+                                </ListItemSecondaryAction>
+                            </ListItem>
+                            <ListItem>
+                                <ListItemIcon>
+                                    <FormatSizeIcon/>
+                                </ListItemIcon>
+                                <ListItemText primary='Bigger font size'/>
+                                <ListItemSecondaryAction>
+                                    <Switch edge='end' checked={!!(props.settings && props.settings.largeFont)}
+                                            onChange={() => {
+                                                props.changeSettings({largeFont: !(props.settings && props.settings.largeFont)})
+                                            }}/>
                                 </ListItemSecondaryAction>
                             </ListItem>
                         </List>
@@ -72,7 +87,7 @@ function SettingsList(props) {
 }
 
 const mapStateToProps = state => ({
-   settings: state.user.user.settings
+    settings: state.user.user.settings
 });
 
 export default connect(mapStateToProps, {changeSettings})(SettingsList);

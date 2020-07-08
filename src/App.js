@@ -30,11 +30,9 @@ function App(props) {
     
     useEffect(() => {
         if(settings) {
-            if (settings.darkTheme) {
-                setTheme('dark');
-            } else {
-                setTheme('light');
-            }
+            let mode = settings.darkTheme ? 'dark' : 'light';
+            let font = settings.largeFont ? 'large' : 'normal';
+            setTheme(`${mode}-${font}`);
         }
     }, [settings]);
     
