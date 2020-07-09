@@ -10,6 +10,7 @@ import {makeStyles} from '@material-ui/styles';
 import LeftMenu from './LeftMenu';
 import TasksList from './TasksList';
 import Settings from './Settings';
+import Profile from './Profile';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -110,7 +111,10 @@ function AppMain(props) {
                             <TasksList stage='completed' setStage={setStage}/>
                         </Route>
                         <Route path='/app/profile'>
-                            <h1>Profile</h1>
+                            <Profile setStage={setStage} logoutUser={() => {
+                                props.logoutUser();
+                                setLogout(true);
+                            }}/>
                         </Route>
                         <Route path='/app/settings'>
                             <Settings setStage={setStage}/>
