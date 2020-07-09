@@ -36,13 +36,13 @@ function SettingsEmail(props) {
                                 <FormControl fullWidth>
                                     <TextField
                                         error={!!(
-                                            getError("emailReq")||
-                                            getError("emailVal")||
-                                            getError("emailEx"))}
+                                            getError('emailReq') ||
+                                            getError('emailVal') ||
+                                            getError('emailEx'))}
                                         helperText={(
-                                            getError("emailReq")||
-                                            getError("emailVal")||
-                                            getError("emailEx"))}
+                                            getError('emailReq') ||
+                                            getError('emailVal') ||
+                                            getError('emailEx'))}
                                         label='New email address'
                                         type='email'
                                         name='email'
@@ -53,10 +53,10 @@ function SettingsEmail(props) {
                                     <Box mt={1}/>
                                     <TextField
                                         error={!!(
-                                            getError("updatePass")
+                                            getError('updatePass')
                                         )}
                                         helperText={(
-                                            getError("updatePass")
+                                            getError('updatePass')
                                         )}
                                         label='Password'
                                         type='password'

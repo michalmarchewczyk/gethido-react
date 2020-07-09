@@ -86,6 +86,22 @@ const UserService = {
             })
     },
     
+    delete: async ({password}) => {
+        return fetch(`${API_URL}/user/delete`, {
+            method: 'DELETE',
+            credentials: 'include',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({password})
+        })
+            .then(res => res.json())
+            .then(data => {
+                return data;
+            })
+            .catch(err => {
+                return false;
+            })
+    },
+    
     getSettings: async () => {
         return fetch(`${API_URL}/user/settings`, {
             method: 'GET',

@@ -57,7 +57,7 @@ function SettingsPassword(props) {
                                             getError('passLen')
                                         )}
                                         helperText={(
-                                            getError('passReq')||
+                                            getError('passReq') ||
                                             getError('passLen')
                                         )}
                                         label='New password'

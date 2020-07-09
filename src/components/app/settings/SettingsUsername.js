@@ -38,17 +38,17 @@ function SettingsUsername(props) {
                                 <FormControl fullWidth>
                                     <TextField
                                         error={!!(
-                                            getError("userReq")||
-                                            getError("userLen")||
-                                            getError("userMax")||
-                                            getError("userVal")||
-                                            getError("userEx"))}
+                                            getError('userReq') ||
+                                            getError('userLen') ||
+                                            getError('userMax') ||
+                                            getError('userVal') ||
+                                            getError('userEx'))}
                                         helperText={(
-                                            getError("userReq")||
-                                            getError("userLen")||
-                                            getError("userMax")||
-                                            getError("userVal")||
-                                            getError("userEx"))}
+                                            getError('userReq') ||
+                                            getError('userLen') ||
+                                            getError('userMax') ||
+                                            getError('userVal') ||
+                                            getError('userEx'))}
                                         label='New username'
                                         name='username'
                                         onChange={(e) => {
@@ -58,10 +58,10 @@ function SettingsUsername(props) {
                                     <Box mt={1}/>
                                     <TextField
                                         error={!!(
-                                            getError("updatePass")
+                                            getError('updatePass')
                                         )}
                                         helperText={(
-                                            getError("updatePass")
+                                            getError('updatePass')
                                         )}
                                         label='Password'
                                         type='password'

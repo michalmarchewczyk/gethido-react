@@ -93,9 +93,11 @@ export const updateUser = ({oldPassword, newUsername, newEmail, newPassword, new
 };
 
 
-export const deleteUser = ({password}) => dispatch => {
+export const deleteUser = ({password}) => async dispatch => {
+    let data = await UserService.delete({password});
     dispatch({
         type: DELETE_USER,
+        payload: data,
     })
 };
 

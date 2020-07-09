@@ -53,8 +53,11 @@ export const userReducer = (state = initialState, action) => {
                 logged: (action.payload && action.payload[0].type==='updateSuc')? false : state.logged,
             };
         case DELETE_USER:
+            console.log(action.payload);
             return {
-                ...state
+                ...state,
+                errors: (action.payload)? action.payload : [],
+                logged: (action.payload && action.payload[0].type==='deleteSuc')? false : state.logged,
             };
         case GET_SETTINGS:
             return {
