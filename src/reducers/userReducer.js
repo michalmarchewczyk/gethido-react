@@ -17,6 +17,8 @@ const initialState = {
     logged: null,
     user: {},
     errors: [],
+    emails: [],
+    emailGen: null,
 };
 
 export const userReducer = (state = initialState, action) => {
@@ -46,14 +48,12 @@ export const userReducer = (state = initialState, action) => {
                 errors: action.payload,
             };
         case UPDATE_USER:
-            console.log(action.payload);
             return {
                 ...state,
                 errors: (action.payload)? action.payload : [],
                 logged: (action.payload && action.payload[0].type==='updateSuc')? false : state.logged,
             };
         case DELETE_USER:
-            console.log(action.payload);
             return {
                 ...state,
                 errors: (action.payload)? action.payload : [],
@@ -83,15 +83,20 @@ export const userReducer = (state = initialState, action) => {
             };
         case GET_EMAILS:
             return {
-                ...state
+                ...state,
+                emails: (action.payload[0])? action.payload: [],
+                emailGen: null,
             };
         case SET_EMAIL:
             return {
-                ...state
+                ...state,
+                emailGen: (action.payload)? action.payload : '',
             };
         case DELETE_EMAIL:
             return {
-                ...state
+                ...state,
+                emails: (action.payload[0])? action.payload: [],
+                emailGen: null,
             };
         default:
             return state

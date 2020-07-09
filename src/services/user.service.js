@@ -130,6 +130,50 @@ const UserService = {
             .catch(err => {
                 return false
             })
+    },
+    
+    getEmails: async () => {
+        return fetch(`${API_URL}/user/email`, {
+            method: 'GET',
+            credentials: 'include'
+        })
+            .then(res => res.json())
+            .then(data => {
+                return data
+            })
+            .catch(err => {
+                return false
+            })
+    },
+    
+    setEmail: async () => {
+        return fetch(`${API_URL}/user/email`, {
+            method: 'PUT',
+            credentials: 'include'
+        })
+            .then(res => res.json())
+            .then(data => {
+                return data
+            })
+            .catch(err => {
+                return false
+            })
+    },
+    
+    deleteEmail: async ({email}) => {
+        return fetch(`${API_URL}/user/email`, {
+            method: 'DELETE',
+            credentials: 'include',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({emailAddress: email}),
+        })
+            .then(res => res.json())
+            .then(data => {
+                return data
+            })
+            .catch(err => {
+                return false
+            })
     }
 };
 

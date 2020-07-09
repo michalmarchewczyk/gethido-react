@@ -120,22 +120,28 @@ export const changeSettings = (newSettings) => async dispatch => {
 };
 
 
-export const getEmails = () => dispatch => {
+export const getEmails = () => async dispatch => {
+    let data = await UserService.getEmails();
     dispatch({
         type: GET_EMAILS,
+        payload: data,
     })
 };
 
 
-export const setEmail = () => dispatch => {
+export const setEmail = () => async dispatch => {
+    let data = await UserService.setEmail();
     dispatch({
         type: SET_EMAIL,
+        payload: data,
     })
 };
 
 
-export const deleteEmail = ({email}) => dispatch => {
+export const deleteEmail = ({email}) => async dispatch => {
+    let data = await UserService.deleteEmail({email});
     dispatch({
         type: DELETE_EMAIL,
+        payload: data,
     })
 };
