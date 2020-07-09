@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {Box, Button, FormControl, Paper, TextField, Typography, MenuItem} from '@material-ui/core';
-import {Link, Redirect} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {getEmails, deleteEmail} from '../../../actions/userActions';
 

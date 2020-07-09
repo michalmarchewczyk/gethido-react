@@ -1,5 +1,5 @@
 import {createMuiTheme} from '@material-ui/core';
-import {useState} from 'react';
+import {useState, useMemo} from 'react';
 import grey from '@material-ui/core/colors/grey';
 import blue from '@material-ui/core/colors/blue';
 
@@ -42,10 +42,10 @@ const themes = {
 
 
 export default function useMuiTheme() {
+    
     const [theme, _setTheme] = useState(createMuiTheme({...themes.light, ...themes.normalFont}));
     
-    
-    const setTheme = (themeType) => {
+    const setTheme = useMemo(() => (themeType) => {
         let t;
         switch (themeType) {
             case 'light-normal':
@@ -65,7 +65,7 @@ export default function useMuiTheme() {
         }
         
         _setTheme(t);
-    };
+    }, []);
     
     return [theme, setTheme];
 }

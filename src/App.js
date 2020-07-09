@@ -34,7 +34,7 @@ function App(props) {
             let font = settings.largeFont ? 'large' : 'normal';
             setTheme(`${mode}-${font}`);
         }
-    }, [settings]);
+    }, [settings, setTheme]);
     
     
     return (
