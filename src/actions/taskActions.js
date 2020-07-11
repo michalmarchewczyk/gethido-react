@@ -47,8 +47,8 @@ export const moveTask = ({id, stage}) => async dispatch => {
 };
 
 
-export const updateTask = ({name, description, completed}) => async dispatch => {
-    let data = await TaskService.update({name, description, completed});
+export const updateTask = ({id, name, description, completed}) => async dispatch => {
+    let data = await TaskService.update({id, name, description, completed});
     dispatch({
         type: UPDATE_TASK,
         payload: data

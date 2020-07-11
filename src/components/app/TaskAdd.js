@@ -47,6 +47,7 @@ function TaskAdd(props) {
                                 label='Name'
                                 fullWidth
                                 onChange={(e) => {setName(e.target.value)}}
+                                value={name}
                             />
                         </Box>
                         <Box mt={1}>
@@ -57,6 +58,7 @@ function TaskAdd(props) {
                                 rows={2}
                                 rowsMax={6}
                                 onChange={(e) => {setDesc(e.target.value)}}
+                                value={desc}
                             />
                         </Box>
                     </DialogContent>

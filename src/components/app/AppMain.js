@@ -12,6 +12,7 @@ import TasksList from './TasksList';
 import Settings from './Settings';
 import Profile from './Profile';
 import TaskView from './TaskView';
+import TaskEdit from './TaskEdit';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -110,6 +111,10 @@ function AppMain(props) {
                         </Route>
                         <Route path='/app/completed'>
                             <TasksList stage='completed' setStage={setStage}/>
+                        </Route>
+                        <Route path='/app/task/edit/:id'>
+                            <TaskEdit setStage={setStage}/>
+                            {/*Edit task*/}
                         </Route>
                         <Route path='/app/task/:id'>
                             <TaskView setStage={setStage}/>

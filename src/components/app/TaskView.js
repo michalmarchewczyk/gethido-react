@@ -36,7 +36,8 @@ function TaskView(props) {
     useDocumentTitle(`Task "${(currentTask.name) ? currentTask.name : ''}"`);
     
     useEffect(() => {
-        setStage(`Task "${(currentTask.name) ? currentTask.name : ''}"`);
+        // setStage(`Task "${(currentTask.name) ? currentTask.name : ''}"`);
+        setStage('Task');
     }, [currentTask, setStage]);
     
     useEffect(() => {
@@ -92,21 +93,6 @@ function TaskView(props) {
                                 {currentTask.source}
                             </Typography>
                         </Box>
-                        {/*<Box>*/}
-                        {/*    <Typography variant='subtitle1' color='textSecondary' className={classes.subtitle}>*/}
-                        {/*        Tags*/}
-                        {/*    </Typography>*/}
-                        {/*    <Typography variant='body1' component='span'>*/}
-                        {/*        {(currentTask.tags)? currentTask.tags.map(tag => (*/}
-                        {/*            <Chip*/}
-                        {/*                label={tag}*/}
-                        {/*                clickable*/}
-                        {/*                onDelete={() => {}}*/}
-                        {/*                className={classes.tag}*/}
-                        {/*            />*/}
-                        {/*        )) : <></>}*/}
-                        {/*    </Typography>*/}
-                        {/*</Box>*/}
                         <Box>
                             <Typography variant='subtitle1' color='textSecondary' className={classes.subtitle}>
                                 Description
@@ -119,10 +105,6 @@ function TaskView(props) {
                             <Typography variant='subtitle1' color='textSecondary' className={classes.subtitle}>
                                 Email
                             </Typography>
-                            {/*/!*<Typography variant='body1' component='span'>*!/*/}
-                            {/*/!*    {ReactHtmlParser(currentTask.message.html)}*!/*/}
-                            {/*    <iframe title='message content' srcDoc={currentTask.message.html}/>*/}
-                            {/*/!*</Typography>*!/*/}
                             <Button onClick={() => {setDialogOpen(true)}}>View email</Button>
                             <TaskViewEmail open={dialogOpen} handleClose={setDialogOpen.bind(this, false)} message={props.currentTask.message}/>
                         </Box></> : <></>}
@@ -132,8 +114,8 @@ function TaskView(props) {
                         <Link to={`/app/${stage ? stage : 'inbox'}`}>
                             <Button>Go back</Button>
                         </Link>
-                        <Link to='/app/settings'>
-                            <Button onClick={props.logoutUser}>Edit</Button>
+                        <Link to={`/app/task/edit/${currentTask.id}`}>
+                            <Button>Edit</Button>
                         </Link>
                     </Box>
                 </Paper>
