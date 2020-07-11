@@ -13,18 +13,25 @@ import {
 const initialState = {
     tasks: [],
     stage: null,
+    currentTask: {},
 };
 
 
 export const taskReducer = (state = initialState, action) => {
     switch (action.type) {
         case GET_TASKS:
+            // console.log(action.payload);
             return {
-                ...state
+                ...state,
+                stage: action.payload.stage,
+                tasks: (action.payload.data[0])? action.payload.data : [],
+                currentTask: {},
             };
         case GET_TASK:
+            // console.log(action.payload);
             return {
-                ...state
+                ...state,
+                currentTask: (action.payload.name)? action.payload : {},
             };
         case CREATE_TASK:
             return {

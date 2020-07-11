@@ -15,7 +15,7 @@ export const getTasks = ({stage}) => async dispatch => {
     let data = await TaskService.getTasks({stage});
     dispatch({
         type: GET_TASKS,
-        payload: data,
+        payload: {data, stage},
     })
 };
 

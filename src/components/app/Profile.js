@@ -40,9 +40,7 @@ function Profile(props) {
                         <Link to='/app/settings'>
                             <Button>Settings</Button>
                         </Link>
-                        <Link to='/app/settings'>
-                            <Button  onClick={props.logoutUser}>Logout</Button>
-                        </Link>
+                        <Button onClick={props.logoutUser}>Logout</Button>
                     </Box>
                 </Paper>
             </Box>

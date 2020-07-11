@@ -11,6 +11,7 @@ import LeftMenu from './LeftMenu';
 import TasksList from './TasksList';
 import Settings from './Settings';
 import Profile from './Profile';
+import TaskView from './TaskView';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -109,6 +110,9 @@ function AppMain(props) {
                         </Route>
                         <Route path='/app/completed'>
                             <TasksList stage='completed' setStage={setStage}/>
+                        </Route>
+                        <Route path='/app/task/:id'>
+                            <TaskView setStage={setStage}/>
                         </Route>
                         <Route path='/app/profile'>
                             <Profile setStage={setStage} logoutUser={() => {
