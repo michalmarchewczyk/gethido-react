@@ -111,7 +111,7 @@ function TaskView(props) {
                             <Typography variant='subtitle1' color='textSecondary' className={classes.subtitle}>
                                 Description
                             </Typography>
-                            <Typography variant='body1'>
+                            <Typography variant='body1' style={{whiteSpace: 'break-spaces', wordBreak: 'break-all'}}>
                                 {currentTask.description}
                             </Typography>
                         </Box>
