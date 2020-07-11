@@ -34,8 +34,10 @@ export const taskReducer = (state = initialState, action) => {
                 currentTask: (action.payload.name)? action.payload : {},
             };
         case CREATE_TASK:
+            console.log(action.payload);
             return {
-                ...state
+                ...state,
+                tasks: (action.payload.id)? [...state.tasks, action.payload] : state.tasks,
             };
         case MOVE_TASK:
             return {

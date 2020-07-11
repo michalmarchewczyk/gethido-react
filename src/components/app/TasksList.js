@@ -16,6 +16,7 @@ import {getTasks} from '../../actions/taskActions';
 import TaskItem from './TaskItem';
 import useWindowSize from '../hooks/useWindowSize';
 import TaskItemMenu from './TaskItemMenu';
+import TaskAdd from './TaskAdd';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -46,7 +47,8 @@ function TasksList(props) {
     
     const renderRow = ({index, style}) => {
         return (
-            <TaskItem task={props.tasks[index]} key={index} style={style} handleMenu={handleClickOpen} setTask={setTask}/>
+            <TaskItem task={props.tasks[index]} key={index} style={style} handleMenu={handleClickOpen}
+                      setTask={setTask}/>
         );
     };
     
@@ -88,6 +90,10 @@ function TasksList(props) {
                     </Box>
                 </Paper>
             </Box>
+            {stage === 'inbox' ? (
+                <TaskAdd/>
+            ) : (<></>)
+            }
         </div>
     );
 }
