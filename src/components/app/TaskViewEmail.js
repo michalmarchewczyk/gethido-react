@@ -78,7 +78,7 @@ function TaskViewEmail(props) {
             <DialogActions>
                 <Button onClick={props.handleClose}>Close</Button>
             </DialogActions>
-            
+        
         </Dialog>
     );
 }

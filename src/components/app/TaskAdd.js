@@ -34,10 +34,14 @@ function TaskAdd(props) {
     
     return (
         <React.Fragment>
-            <Fab color='primary' className={classes.fab} onClick={() => {setOpen(true)}}>
-                <AddIcon />
+            <Fab color='primary' className={classes.fab} onClick={() => {
+                setOpen(true)
+            }}>
+                <AddIcon/>
             </Fab>
-            <Dialog open={open} onClose={() => {setOpen(false)}} maxWidth='sm' fullWidth>
+            <Dialog open={open} onClose={() => {
+                setOpen(false)
+            }} maxWidth='sm' fullWidth>
                 <form onSubmit={onSubmit}>
                     <DialogTitle>Add task</DialogTitle>
                     <DialogContent>
@@ -46,7 +50,9 @@ function TaskAdd(props) {
                                 type='text'
                                 label='Name'
                                 fullWidth
-                                onChange={(e) => {setName(e.target.value)}}
+                                onChange={(e) => {
+                                    setName(e.target.value)
+                                }}
                                 value={name}
                             />
                         </Box>
@@ -57,7 +63,9 @@ function TaskAdd(props) {
                                 fullWidth
                                 rows={2}
                                 rowsMax={6}
-                                onChange={(e) => {setDesc(e.target.value)}}
+                                onChange={(e) => {
+                                    setDesc(e.target.value)
+                                }}
                                 value={desc}
                             />
                         </Box>

@@ -5,6 +5,7 @@ import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {getEmails} from '../../../actions/userActions';
 
+
 function EmailsView(props) {
     
     const {getEmails} = props;
@@ -22,9 +23,10 @@ function EmailsView(props) {
                             Inbox email addresses:
                         </Typography>
                     </Box>
-                    {(props.emails.length===0)?
+                    {(props.emails.length === 0) ?
                         <Box p={2}>
-                            <Typography variant='h4' component='span' align='center' display='block' color='textSecondary'>
+                            <Typography variant='h4' component='span' align='center' display='block'
+                                        color='textSecondary'>
                                 No email addresses
                             </Typography>
                         </Box>

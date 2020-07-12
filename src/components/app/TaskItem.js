@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Link} from 'react-router-dom';
 import {
     ListItem,
@@ -7,17 +7,12 @@ import {
     ListItemSecondaryAction,
     Checkbox,
     Typography,
-    // Box,
     IconButton,
-    // Menu,
-    // MenuItem,
-    // Divider,
-    // Toolbar,
     useTheme, useMediaQuery
 } from '@material-ui/core';
 import {makeStyles} from '@material-ui/core/styles';
 import {
-    // Inbox as InboxIcon,
+    Inbox as InboxIcon,
     Forward as ForwardIcon,
     Schedule as ScheduleIcon,
     Event as EventIcon,
@@ -25,10 +20,14 @@ import {
     Delete as DeleteIcon,
     Bookmark as BookmarkIcon,
     Folder as FolderIcon,
-    // Done as DoneIcon,
-    // ZoomOutMap as ZoomOutMapIcon,
-    Launch as LaunchIcon, MoreVert as MoreVertIcon
+    Done as DoneIcon,
+    DeleteForever as DeleteForeverIcon,
+    Launch as LaunchIcon,
+    MoreVert as MoreVertIcon
 } from '@material-ui/icons';
+
+import {connect} from 'react-redux';
+import {updateTask, moveTask, deleteTask} from '../../actions/taskActions';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -73,11 +72,12 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-
 function TaskItem(props) {
     const {task} = props;
-
+    
     const classes = useStyles();
+    
+    const [completed, setCompleted] = useState(false);
     
     const theme = useTheme();
     const small = useMediaQuery(theme.breakpoints.down('sm'));
@@ -85,73 +85,110 @@ function TaskItem(props) {
     const handleChange = (e) => {
         e.preventDefault();
         e.stopPropagation();
+        props.updateTask({id: task.id, completed: !task.completed});
+        setCompleted(!completed);
+    };
+    
+    useEffect(() => {
+        // console.log(task.completed, task.stage);
+        setCompleted(task.completed);
+    }, [task.completed]);
+    
+    const handleMove = (stage) => {
+        props.moveTask({id: task.id, stage: stage})
+    };
+    
+    const handleDelete = () => {
+        props.deleteTask({id: task.id});
     };
     
     return (
         <div style={props.style} className={classes.container}>
-        <ListItem button dense className={classes.item} ContainerComponent='div'>
-            <ListItemIcon>
-                <Checkbox
-                    // edge='start'
-                    checked={task.completed}
-                    color='secondary'
-                    disableRipple
-                    onChange={handleChange}
+            <ListItem button dense className={classes.item} ContainerComponent='div' onClick={handleChange}>
+                <ListItemIcon>
+                    <Checkbox
+                        checked={completed}
+                        color='secondary'
+                        disableRipple
+                    />
+                </ListItemIcon>
+                <ListItemText
+                    primary={
+                        <Typography className={classes.name} variant='body1'>
+                            {task.name}
+                        </Typography>
+                    }
+                    secondary={
+                        <Typography className={classes.desc} color='textSecondary' variant='body2'>
+                            {task.description}
+                        </Typography>
+                    }
                 />
-            </ListItemIcon>
-            <ListItemText
-                primary={
-                    <Typography className={classes.name} variant='body1'>
-                        {task.name}
-                    </Typography>
-                }
-                secondary={
-                    <Typography className={classes.desc} color='textSecondary' variant='body2'>
-                        {task.description}
-                    </Typography>
-                }
-            />
-            <ListItemSecondaryAction className={classes.action}>
-                {small ? (
-                    <IconButton onClick={() => {
-                        props.setTask(task);
-                        props.handleMenu();
-                    }}>
-                        <MoreVertIcon/>
-                    </IconButton>
-                    // <></>
-                ) : (<>
-                    <IconButton>
-                        <ForwardIcon/>
-                    </IconButton>
-                    <IconButton>
-                        <ScheduleIcon/>
-                    </IconButton>
-                    <IconButton>
-                        <EventIcon/>
-                    </IconButton>
-                    <IconButton>
-                        <AccountTreeIcon/>
-                    </IconButton>
-                    <IconButton>
-                        <DeleteIcon/>
-                    </IconButton>
-                    <IconButton>
-                        <BookmarkIcon/>
-                    </IconButton>
-                    <IconButton>
-                        <FolderIcon/>
-                    </IconButton>
-                </>)}
-                <Link to={`/app/task/${task.id}`}>
-                    <IconButton>
-                        <LaunchIcon/>
-                    </IconButton>
-                </Link>
-            </ListItemSecondaryAction>
-        </ListItem>
+                <ListItemSecondaryAction className={classes.action}>
+                    {small ? (
+                        <IconButton onClick={() => {
+                            props.setTask(task);
+                            props.handleMenu();
+                        }}>
+                            <MoreVertIcon/>
+                        </IconButton>
+                    ) : (<>
+                        {task.stage === 'inbox' ? (<>
+                            <IconButton onClick={() => handleMove('next')}>
+                                <ForwardIcon/>
+                            </IconButton>
+                            <IconButton onClick={() => handleMove('waiting')}>
+                                <ScheduleIcon/>
+                            </IconButton>
+                            <IconButton onClick={() => handleMove('calendar')}>
+                                <EventIcon/>
+                            </IconButton>
+                            <IconButton onClick={() => handleMove('projects')}>
+                                <AccountTreeIcon/>
+                            </IconButton>
+                            <IconButton onClick={() => handleMove('trash')}>
+                                <DeleteIcon/>
+                            </IconButton>
+                            <IconButton onClick={() => handleMove('someday')}>
+                                <BookmarkIcon/>
+                            </IconButton>
+                            <IconButton onClick={() => handleMove('reference')}>
+                                <FolderIcon/>
+                            </IconButton>
+                        </>) : (<>
+                            <IconButton onClick={() => handleMove('inbox')}>
+                                <InboxIcon/>
+                            </IconButton>
+                            {(task.stage !== 'completed') ? (<>
+                                <IconButton onClick={() => handleMove('completed')}>
+                                    <DoneIcon/>
+                                </IconButton>
+                            </>) : (<></>)}
+                            {(task.stage === 'trash') ? (<>
+                                <IconButton onClick={() => handleDelete()}>
+                                    <DeleteForeverIcon/>
+                                </IconButton>
+                            </>) : (<>
+                                <IconButton onClick={() => handleMove('trash')}>
+                                    <DeleteIcon/>
+                                </IconButton>
+                            </>)}
+                        </>)}
+                    </>)}
+                    <Link to={`/app/task/${task.id}`}>
+                        <IconButton>
+                            <LaunchIcon/>
+                        </IconButton>
+                    </Link>
+                </ListItemSecondaryAction>
+            </ListItem>
         </div>
     );
 }
 
-export default TaskItem;
+const mapStateToProps = (state, ownProps) => ({
+    // tasks: state.task.tasks,
+    task: state.task.tasks[ownProps.id],
+});
+
+export default connect(mapStateToProps, {updateTask, moveTask, deleteTask})(TaskItem);

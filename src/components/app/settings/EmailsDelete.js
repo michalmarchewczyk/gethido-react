@@ -34,9 +34,11 @@ function EmailsDelete(props) {
                                 <FormControl fullWidth>
                                     <TextField
                                         select
-                                        label="Select email address"
+                                        label='Select email address'
                                         value={email}
-                                        onChange={(e) => {setEmail(e.target.value)}}
+                                        onChange={(e) => {
+                                            setEmail(e.target.value)
+                                        }}
                                     >
                                         {props.emails.map((email, index) => (
                                             <MenuItem key={index} value={email}>

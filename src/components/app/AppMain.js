@@ -8,7 +8,7 @@ import {Container} from '@material-ui/core';
 import TopBar from './TopBar';
 import {makeStyles} from '@material-ui/styles';
 import LeftMenu from './LeftMenu';
-import TasksList from './TasksList';
+import Tasks from './Tasks';
 import Settings from './Settings';
 import Profile from './Profile';
 import TaskView from './TaskView';
@@ -51,7 +51,6 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-
 function AppMain(props) {
     const [logout, setLogout] = useState(false);
     
@@ -67,7 +66,6 @@ function AppMain(props) {
         }
         setDrawer(openDrawer);
     };
-
     
     return (
         <div>
@@ -83,38 +81,38 @@ function AppMain(props) {
             />
             <LeftMenu toggleDrawer={toggleDrawer} drawer={drawer} className={classes.leftMenu}/>
             <div className={classes.containerDiv}>
-                <Container className={[classes.container, (drawer ? classes.containerOpen : '')].join(' ')} maxWidth='lg'>
+                <Container className={[classes.container, (drawer ? classes.containerOpen : '')].join(' ')}
+                           maxWidth='lg'>
                     <Switch>
                         <Route path='/app/inbox'>
-                            <TasksList stage='inbox' setStage={setStage}/>
+                            <Tasks stage='inbox' setStage={setStage}/>
                         </Route>
                         <Route path='/app/trash'>
-                            <TasksList stage='trash' setStage={setStage}/>
+                            <Tasks stage='trash' setStage={setStage}/>
                         </Route>
                         <Route path='/app/someday'>
-                            <TasksList stage='someday' setStage={setStage}/>
+                            <Tasks stage='someday' setStage={setStage}/>
                         </Route>
                         <Route path='/app/reference'>
-                            <TasksList stage='reference' setStage={setStage}/>
+                            <Tasks stage='reference' setStage={setStage}/>
                         </Route>
                         <Route path='/app/next'>
-                            <TasksList stage='next' setStage={setStage}/>
+                            <Tasks stage='next' setStage={setStage}/>
                         </Route>
                         <Route path='/app/waiting'>
-                            <TasksList stage='waiting' setStage={setStage}/>
+                            <Tasks stage='waiting' setStage={setStage}/>
                         </Route>
                         <Route path='/app/projects'>
-                            <TasksList stage='projects' setStage={setStage}/>
+                            <Tasks stage='projects' setStage={setStage}/>
                         </Route>
                         <Route path='/app/calendar'>
-                            <TasksList stage='calendar' setStage={setStage}/>
+                            <Tasks stage='calendar' setStage={setStage}/>
                         </Route>
                         <Route path='/app/completed'>
-                            <TasksList stage='completed' setStage={setStage}/>
+                            <Tasks stage='completed' setStage={setStage}/>
                         </Route>
                         <Route path='/app/task/edit/:id'>
                             <TaskEdit setStage={setStage}/>
-                            {/*Edit task*/}
                         </Route>
                         <Route path='/app/task/:id'>
                             <TaskView setStage={setStage}/>

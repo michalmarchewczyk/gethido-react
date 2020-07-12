@@ -22,7 +22,7 @@ function SettingsLink(props) {
     return (
         <Link to={props.to}>
             <ListItem button>
-                <ListItemText primary={props.text} className={props.red? classes.red : ''}/>
+                <ListItemText primary={props.text} className={props.red ? classes.red : ''}/>
                 <ChevronRightIcon/>
             </ListItem>
         </Link>

@@ -11,6 +11,7 @@ import {makeStyles} from '@material-ui/core/styles';
 import moment from 'moment';
 import TaskViewEmail from './TaskViewEmail';
 
+
 const useStyles = makeStyles((theme) => ({
     subtitle: {
         marginTop: theme.spacing(1),
@@ -59,11 +60,13 @@ function TaskView(props) {
                         </Typography>
                     </Box>
                     <Box mt={2} mx={1}>
-                        {(currentTask.tags)? currentTask.tags.map(tag => (
+                        {(currentTask.tags) ? currentTask.tags.map((tag, index) => (
                             <Chip
+                                key={index}
                                 label={tag}
                                 clickable
-                                onDelete={() => {}}
+                                onDelete={() => {
+                                }}
                                 className={classes.tag}
                             />
                         )) : <></>}
@@ -101,12 +104,15 @@ function TaskView(props) {
                                 {currentTask.description}
                             </Typography>
                         </Box>
-                        {(currentTask.message)? <><Box>
+                        {(currentTask.message) ? <><Box>
                             <Typography variant='subtitle1' color='textSecondary' className={classes.subtitle}>
                                 Email
                             </Typography>
-                            <Button onClick={() => {setDialogOpen(true)}}>View email</Button>
-                            <TaskViewEmail open={dialogOpen} handleClose={setDialogOpen.bind(this, false)} message={props.currentTask.message}/>
+                            <Button onClick={() => {
+                                setDialogOpen(true)
+                            }}>View email</Button>
+                            <TaskViewEmail open={dialogOpen} handleClose={setDialogOpen.bind(this, false)}
+                                           message={props.currentTask.message}/>
                         </Box></> : <></>}
                     </Box>
                     <Divider/>

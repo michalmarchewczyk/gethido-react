@@ -10,7 +10,7 @@ import {
     ListItemIcon,
 } from '@material-ui/core';
 import {
-    // Inbox as InboxIcon,
+    Inbox as InboxIcon,
     Forward as ForwardIcon,
     Schedule as ScheduleIcon,
     Event as EventIcon,
@@ -18,11 +18,13 @@ import {
     Delete as DeleteIcon,
     Bookmark as BookmarkIcon,
     Folder as FolderIcon,
-    // Done as DoneIcon,
-    // ZoomOutMap as ZoomOutMapIcon,
-    // Launch as LaunchIcon, MoreVert as MoreVertIcon
+    Done as DoneIcon,
+    DeleteForever as DeleteForeverIcon,
 } from '@material-ui/icons';
 import {makeStyles} from '@material-ui/core/styles';
+
+import {connect} from 'react-redux';
+import {moveTask, deleteTask} from '../../actions/taskActions';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -39,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 function TaskItemMenu(props) {
-    const { onClose, open, task } = props;
+    const {onClose, open, task} = props;
     
     const handleClose = () => {
         onClose();
@@ -47,62 +49,102 @@ function TaskItemMenu(props) {
     
     const handleListItemClick = (value) => {
         onClose();
+        props.moveTask({id: task.id, stage: value})
+    };
+    
+    const handleDelete = () => {
+        props.deleteTask({id: task.id});
     };
     
     const classes = useStyles();
     
     return (
         <Dialog onClose={handleClose} open={open}>
-            <DialogTitle><span style={{float: 'left'}}>Move task&nbsp;</span> <span className={classes.name}>{(task)? task.name : ''}</span>&nbsp;to</DialogTitle>
+            <DialogTitle><span style={{float: 'left'}}>Move task&nbsp;</span> <span
+                className={classes.name}>{(task) ? task.name : ''}</span>&nbsp;to</DialogTitle>
             <List dense>
-                <ListItem button onClick={() => handleListItemClick('next')}>
-                    <ListItemIcon>
-                        <ForwardIcon/>
-                    </ListItemIcon>
-                    <ListItemText primary='Next'/>
-                </ListItem>
-                <ListItem button onClick={() => handleListItemClick('waiting')}>
-                    <ListItemIcon>
-                        <ScheduleIcon/>
-                    </ListItemIcon>
-                    <ListItemText primary='Waiting'/>
-                </ListItem>
-                <ListItem button onClick={() => handleListItemClick('calendar')}>
-                    <ListItemIcon>
-                        <EventIcon/>
-                    </ListItemIcon>
-                    <ListItemText primary='Calendar'/>
-                </ListItem>
-                <ListItem button onClick={() => handleListItemClick('projects')}>
-                    <ListItemIcon>
-                        <AccountTreeIcon/>
-                    </ListItemIcon>
-                    <ListItemText primary='Projects'/>
-                </ListItem>
-                <ListItem button onClick={() => handleListItemClick('trash')}>
-                    <ListItemIcon>
-                        <DeleteIcon/>
-                    </ListItemIcon>
-                    <ListItemText primary='Trash'/>
-                </ListItem>
-                <ListItem button onClick={() => handleListItemClick('someday')}>
-                    <ListItemIcon>
-                        <BookmarkIcon/>
-                    </ListItemIcon>
-                    <ListItemText primary='Someday'/>
-                </ListItem>
-                <ListItem button onClick={() => handleListItemClick('reference')}>
-                    <ListItemIcon>
-                        <FolderIcon/>
-                    </ListItemIcon>
-                    <ListItemText primary='Reference'/>
-                </ListItem>
+                {(task) ? (<>
+                    {(task.stage === 'inbox') ? (<>
+                        <ListItem button onClick={() => handleListItemClick('next')}>
+                            <ListItemIcon>
+                                <ForwardIcon/>
+                            </ListItemIcon>
+                            <ListItemText primary='Next'/>
+                        </ListItem>
+                        <ListItem button onClick={() => handleListItemClick('waiting')}>
+                            <ListItemIcon>
+                                <ScheduleIcon/>
+                            </ListItemIcon>
+                            <ListItemText primary='Waiting'/>
+                        </ListItem>
+                        <ListItem button onClick={() => handleListItemClick('calendar')}>
+                            <ListItemIcon>
+                                <EventIcon/>
+                            </ListItemIcon>
+                            <ListItemText primary='Calendar'/>
+                        </ListItem>
+                        <ListItem button onClick={() => handleListItemClick('projects')}>
+                            <ListItemIcon>
+                                <AccountTreeIcon/>
+                            </ListItemIcon>
+                            <ListItemText primary='Projects'/>
+                        </ListItem>
+                        <ListItem button onClick={() => handleListItemClick('trash')}>
+                            <ListItemIcon>
+                                <DeleteIcon/>
+                            </ListItemIcon>
+                            <ListItemText primary='Trash'/>
+                        </ListItem>
+                        <ListItem button onClick={() => handleListItemClick('someday')}>
+                            <ListItemIcon>
+                                <BookmarkIcon/>
+                            </ListItemIcon>
+                            <ListItemText primary='Someday'/>
+                        </ListItem>
+                        <ListItem button onClick={() => handleListItemClick('reference')}>
+                            <ListItemIcon>
+                                <FolderIcon/>
+                            </ListItemIcon>
+                            <ListItemText primary='Reference'/>
+                        </ListItem>
+                    </>) : (<>
+                        <ListItem button onClick={() => handleListItemClick('inbox')}>
+                            <ListItemIcon>
+                                <InboxIcon/>
+                            </ListItemIcon>
+                            <ListItemText primary='Inbox'/>
+                        </ListItem>
+                        {(task.stage !== 'completed') ? (<>
+                            <ListItem button onClick={() => handleListItemClick('completed')}>
+                                <ListItemIcon>
+                                    <DoneIcon/>
+                                </ListItemIcon>
+                                <ListItemText primary='Completed'/>
+                            </ListItem>
+                        </>) : (<></>)}
+                        {(task.stage === 'trash') ? (<>
+                            <ListItem button onClick={() => handleDelete()}>
+                                <ListItemIcon>
+                                    <DeleteForeverIcon/>
+                                </ListItemIcon>
+                                <ListItemText primary='Delete forever'/>
+                            </ListItem>
+                        </>) : (<>
+                            <ListItem button onClick={() => handleListItemClick('trash')}>
+                                <ListItemIcon>
+                                    <DeleteIcon/>
+                                </ListItemIcon>
+                                <ListItemText primary='Trash'/>
+                            </ListItem>
+                        </>)}
+                    </>)}
+                </>) : (<></>)}
             </List>
             <DialogActions>
-                <Button  onClick={handleClose}>Cancel</Button>
+                <Button onClick={handleClose}>Cancel</Button>
             </DialogActions>
         </Dialog>
     );
 }
 
-export default TaskItemMenu;
+export default connect(null, {moveTask, deleteTask})(TaskItemMenu);

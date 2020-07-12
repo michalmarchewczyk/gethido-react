@@ -8,7 +8,6 @@ import {Link, Redirect, useParams} from 'react-router-dom';
 import {Box, Button, Divider, Paper, Typography, TextField} from '@material-ui/core';
 
 
-
 function TaskView(props) {
     
     let {id} = useParams();
@@ -21,7 +20,6 @@ function TaskView(props) {
     useDocumentTitle(`Edit task "${(currentTask.name) ? currentTask.name : ''}"`);
     
     useEffect(() => {
-        // setStage(`Edit task "${(currentTask.name) ? currentTask.name : ''}"`);
         setStage('Edit task');
     }, [currentTask, setStage]);
     
@@ -34,12 +32,12 @@ function TaskView(props) {
     
     const onSubmit = e => {
         e.preventDefault();
-        props.updateTask({id: id, name: name, description: desc, completed: currentTask.completed});
+        props.updateTask({id: id, name: name, description: desc});
         setRedirect(true);
     };
     
     useEffect(() => {
-        if(currentTask.name && currentTask.description) {
+        if (currentTask.name && currentTask.description) {
             setName(currentTask.name);
             setDesc(currentTask.description);
         }
@@ -47,13 +45,12 @@ function TaskView(props) {
     
     return (
         <div>
-            {redirect? <Redirect to={`/app/task/${currentTask.id}`}/> : <></>}
+            {redirect ? <Redirect to={`/app/task/${currentTask.id}`}/> : <></>}
             <Box my={3}>
                 <Paper>
                     <form onSubmit={onSubmit}>
                         <Box p={2} pb={0}>
                             <Typography variant='h5'>
-                                {/*{currentTask.name}*/}
                                 Edit task
                             </Typography>
                         </Box>
@@ -61,7 +58,9 @@ function TaskView(props) {
                             <Box>
                                 <TextField
                                     value={name}
-                                    onChange={(e) => {setName(e.target.value)}}
+                                    onChange={(e) => {
+                                        setName(e.target.value)
+                                    }}
                                     label='Name'
                                     fullWidth
                                 />
@@ -69,7 +68,9 @@ function TaskView(props) {
                             <Box mt={1}>
                                 <TextField
                                     value={desc}
-                                    onChange={(e) => {setDesc(e.target.value)}}
+                                    onChange={(e) => {
+                                        setDesc(e.target.value)
+                                    }}
                                     multiline
                                     label='Description'
                                     fullWidth
@@ -83,9 +84,7 @@ function TaskView(props) {
                             <Link to={`/app/task/${currentTask.id}`}>
                                 <Button>Go back</Button>
                             </Link>
-                            {/*<Link to={`/app/task/${currentTask.id}`}>*/}
-                                <Button type='submit'>Save</Button>
-                            {/*</Link>*/}
+                            <Button type='submit' variant='contained' color='primary'>Save</Button>
                         </Box>
                     </form>
                 </Paper>

@@ -31,27 +31,38 @@ export const taskReducer = (state = initialState, action) => {
             // console.log(action.payload);
             return {
                 ...state,
-                currentTask: (action.payload.name)? action.payload : {},
+                currentTask: (action.payload.id)? action.payload : {},
             };
         case CREATE_TASK:
-            console.log(action.payload);
+            // console.log(action.payload);
             return {
                 ...state,
-                tasks: (action.payload.name)? [...state.tasks, action.payload] : state.tasks,
+                tasks: (action.payload.id)? [...state.tasks, action.payload] : state.tasks,
             };
         case MOVE_TASK:
-            return {
-                ...state
-            };
-        case UPDATE_TASK:
-            console.log(action.payload);
+            // console.log(action.payload);
             return {
                 ...state,
-                currentTask: (action.payload.name)? action.payload : state.currentTask,
+                tasks: (action.payload.id)?
+                    state.tasks.filter(task => (task.id!==action.payload.id))
+                    : state.tasks,
+            };
+        case UPDATE_TASK:
+            // console.log(action.payload);
+            return {
+                ...state,
+                tasks: (action.payload.id)?
+                    state.tasks.map(task => (task.id===action.payload.id)? action.payload : task)
+                    : state.tasks,
+                currentTask: (action.payload.id)? action.payload : state.currentTask,
             };
         case DELETE_TASK:
+            // console.log(action.payload);
             return {
-                ...state
+                ...state,
+                tasks: (action.payload.id)?
+                    state.tasks.filter(task => (task.id!==action.payload.id)) : state.tasks,
+                currentTask: (action.payload.id)? action.payload : state.currentTask,
             };
         case TAG_TASK:
             return {
