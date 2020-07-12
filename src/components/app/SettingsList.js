@@ -65,6 +65,44 @@ function SettingsList(props) {
                     </Box>
                     <Divider/>
                     <Box my={1}>
+                        <List subheader={<ListSubheader className={classes.subheader}>Behaviour</ListSubheader>}>
+                            <ListItem>
+                                <ListItemText primary='Automatically move tasks to "completed"'/>
+                                <ListItemSecondaryAction>
+                                    <Switch edge='end'
+                                            checked={!!(props.settings && props.settings.autoCompleted)}
+                                            onChange={() => {
+                                                props.changeSettings({autoCompleted: !(props.settings && props.settings.autoCompleted)})
+                                            }}
+                                    />
+                                </ListItemSecondaryAction>
+                            </ListItem>
+                            <ListItem>
+                                <ListItemText primary='Automatically move tasks from calendar to inbox'/>
+                                <ListItemSecondaryAction>
+                                    <Switch edge='end'
+                                        checked={!!(props.settings && props.settings.autoCalendar)}
+                                        onChange={() => {
+                                            props.changeSettings({autoCalendar: !(props.settings && props.settings.autoCalendar)})
+                                        }}
+                                    />
+                                </ListItemSecondaryAction>
+                            </ListItem>
+                            <ListItem>
+                                <ListItemText primary='Show all options when moving tasks from certain stages'/>
+                                <ListItemSecondaryAction>
+                                    <Switch edge='end'
+                                        checked={!!(props.settings && props.settings.allOptions)}
+                                        onChange={() => {
+                                            props.changeSettings({allOptions: !(props.settings && props.settings.allOptions)})
+                                        }}
+                                    />
+                                </ListItemSecondaryAction>
+                            </ListItem>
+                        </List>
+                    </Box>
+                    <Divider/>
+                    <Box my={1}>
                         <List subheader={<ListSubheader className={classes.subheader}>Emails</ListSubheader>}>
                             <SettingsLink to='/app/settings/emails/view' text='View current inbox email addresses'/>
                             <SettingsLink to='/app/settings/emails/set' text='Generate new inbox email address'/>
