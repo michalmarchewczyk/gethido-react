@@ -6,6 +6,7 @@ import {connect} from 'react-redux';
 
 
 const TasksList = React.memo((props) => {
+// const TasksList = (props) => {
     
     const renderRow = ({index, style}) => {
         return (
@@ -21,7 +22,10 @@ const TasksList = React.memo((props) => {
         </div>
     );
 }, (prevProps, nextProps) => {
-    return prevProps.tasksLength === nextProps.tasksLength && prevProps.tasksStage === nextProps.tasksStage;
+    return prevProps.tasksLength === nextProps.tasksLength
+        && prevProps.tasksStage === nextProps.tasksStage
+        && prevProps.listHeight === nextProps.listHeight
+        && prevProps.stage === nextProps.stage;
 });
 
 

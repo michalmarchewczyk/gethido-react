@@ -68,7 +68,7 @@ function Tasks(props) {
             <Box my={3}>
                 <Paper className={classes.paper}>
                     <Box>
-                        <TasksList handleClickOpen={handleClickOpen} setTask={setTask} listHeight={listHeight}/>
+                        <TasksList handleClickOpen={handleClickOpen} setTask={setTask} listHeight={listHeight} stage={stage}/>
                         <TaskItemMenu open={open} onClose={handleClose} task={task}/>
                     </Box>
                 </Paper>
