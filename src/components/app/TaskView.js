@@ -22,6 +22,7 @@ const useStyles = makeStyles((theme) => ({
         }
     },
     tag: {
+        marginTop: theme.spacing(1),
         marginLeft: theme.spacing(1),
     }
 }));
@@ -45,10 +46,13 @@ function TaskView(props) {
         getTask({id: id});
     }, [id, getTask]);
     
-    
     const classes = useStyles();
     
     const [dialogOpen, setDialogOpen] = useState(false);
+    
+    const onTag = (tag) => {
+        console.log(tag);
+    };
     
     return (
         <div>
@@ -59,15 +63,14 @@ function TaskView(props) {
                             {currentTask.name}
                         </Typography>
                     </Box>
-                    <Box mt={2} mx={1}>
+                    <Box mt={1} mx={1}>
                         {(currentTask.tags) ? currentTask.tags.map((tag, index) => (
                             <Chip
                                 key={index}
                                 label={tag}
                                 clickable
-                                onDelete={() => {
-                                }}
                                 className={classes.tag}
+                                onClick={() => onTag(tag)}
                             />
                         )) : <></>}
                     </Box>

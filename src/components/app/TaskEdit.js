@@ -1,11 +1,21 @@
 import React, {useEffect, useState} from 'react';
 
 import {connect} from 'react-redux';
-import {getTask, updateTask} from '../../actions/taskActions';
+import {getTask, updateTask, tagTask} from '../../actions/taskActions';
 
 import useDocumentTitle from '../hooks/useDocumentTitle';
 import {Link, Redirect, useParams} from 'react-router-dom';
-import {Box, Button, Divider, Paper, Typography, TextField} from '@material-ui/core';
+import {Box, Button, Divider, Paper, Typography, TextField, Chip, Dialog, DialogTitle, DialogContent, DialogActions} from '@material-ui/core';
+import {Add as AddIcon} from '@material-ui/icons';
+import {makeStyles} from '@material-ui/core/styles';
+
+
+const useStyles = makeStyles((theme) => ({
+    tag: {
+        marginTop: theme.spacing(1),
+        marginLeft: theme.spacing(1),
+    }
+}));
 
 
 function TaskView(props) {
@@ -43,6 +53,24 @@ function TaskView(props) {
         }
     }, [currentTask]);
     
+    const classes = useStyles();
+    
+    const [open, setOpen] = useState(false);
+    
+    const [tag, setTag] = useState('');
+    
+    const onTag = e => {
+        e.preventDefault();
+        console.log([...currentTask.tags, tag]);
+        props.tagTask({id: id, tags: [...currentTask.tags, tag]});
+        setTag('');
+        setOpen(false);
+    };
+    
+    const deleteTag = (tag) => {
+        props.tagTask({id: id, tags: currentTask.tags.filter(t => t !== tag)});
+    };
+    
     return (
         <div>
             {redirect ? <Redirect to={`/app/task/${currentTask.id}`}/> : <></>}
@@ -53,6 +81,23 @@ function TaskView(props) {
                             <Typography variant='h5'>
                                 Edit task
                             </Typography>
+                        </Box>
+                        <Box mt={1} mx={1}>
+                            {(currentTask.tags) ? currentTask.tags.map((tag, index) => (
+                                <Chip
+                                    key={index}
+                                    label={tag}
+                                    onDelete={() => deleteTag(tag)}
+                                    className={classes.tag}
+                                />
+                            )) : <></>}
+                            <Chip
+                                label='Add tag'
+                                clickable
+                                icon={<AddIcon/>}
+                                onClick={() => setOpen(true)}
+                                className={classes.tag}
+                            />
                         </Box>
                         <Box p={2}>
                             <Box>
@@ -89,6 +134,22 @@ function TaskView(props) {
                     </form>
                 </Paper>
             </Box>
+            <Dialog open={open} onClose={() => setOpen(false)} maxWidth='xs' fullWidth>
+                <form onSubmit={onTag}>
+                    <DialogTitle>Add tag</DialogTitle>
+                    <DialogContent>
+                        <TextField
+                            fullWidth
+                            label='Tag'
+                            value={tag}
+                            onChange={(e) => setTag(e.target.value)}
+                        />
+                    </DialogContent>
+                    <DialogActions>
+                        <Button type='submit'>Add</Button>
+                    </DialogActions>
+                </form>
+            </Dialog>
         </div>
     );
 }
@@ -98,4 +159,4 @@ const mapStateToProps = state => ({
     currentTask: state.task.currentTask,
 });
 
-export default connect(mapStateToProps, {getTask, updateTask})(TaskView);
+export default connect(mapStateToProps, {getTask, updateTask, tagTask})(TaskView);

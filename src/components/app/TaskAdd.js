@@ -30,6 +30,8 @@ function TaskAdd(props) {
         e.preventDefault();
         props.createTask({name: name, description: desc});
         setOpen(false);
+        setName('');
+        setDesc('');
     };
     
     return (

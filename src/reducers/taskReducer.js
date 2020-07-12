@@ -24,49 +24,54 @@ export const taskReducer = (state = initialState, action) => {
             return {
                 ...state,
                 stage: action.payload.stage,
-                tasks: (action.payload.data[0])? action.payload.data : [],
+                tasks: (action.payload.data[0]) ? action.payload.data : [],
                 currentTask: {},
             };
         case GET_TASK:
             // console.log(action.payload);
             return {
                 ...state,
-                currentTask: (action.payload.id)? action.payload : {},
+                currentTask: (action.payload.id) ? action.payload : {},
             };
         case CREATE_TASK:
             // console.log(action.payload);
             return {
                 ...state,
-                tasks: (action.payload.id)? [...state.tasks, action.payload] : state.tasks,
+                tasks: (action.payload.id) ? [...state.tasks, action.payload] : state.tasks,
             };
         case MOVE_TASK:
             // console.log(action.payload);
             return {
                 ...state,
-                tasks: (action.payload.id)?
-                    state.tasks.filter(task => (task.id!==action.payload.id))
+                tasks: (action.payload.id) ?
+                    state.tasks.filter(task => (task.id !== action.payload.id))
                     : state.tasks,
             };
         case UPDATE_TASK:
             // console.log(action.payload);
             return {
                 ...state,
-                tasks: (action.payload.id)?
-                    state.tasks.map(task => (task.id===action.payload.id)? action.payload : task)
+                tasks: (action.payload.id) ?
+                    state.tasks.map(task => (task.id === action.payload.id) ? action.payload : task)
                     : state.tasks,
-                currentTask: (action.payload.id)? action.payload : state.currentTask,
+                currentTask: (action.payload.id) ? action.payload : state.currentTask,
             };
         case DELETE_TASK:
             // console.log(action.payload);
             return {
                 ...state,
-                tasks: (action.payload.id)?
-                    state.tasks.filter(task => (task.id!==action.payload.id)) : state.tasks,
-                currentTask: (action.payload.id)? action.payload : state.currentTask,
+                tasks: (action.payload.id) ?
+                    state.tasks.filter(task => (task.id !== action.payload.id)) : state.tasks,
+                currentTask: (action.payload.id) ? action.payload : state.currentTask,
             };
         case TAG_TASK:
+            // console.log(action.payload);
             return {
-                ...state
+                ...state,
+                tasks: (action.payload.id) ?
+                    state.tasks.map(task => (task.id === action.payload.id) ? action.payload : task)
+                    : state.tasks,
+                currentTask: (action.payload.id) ? action.payload : state.currentTask,
             };
         case GET_TAG_TASKS:
             return {
