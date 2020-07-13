@@ -8,12 +8,12 @@ import store from './store';
 
 
 ReactDOM.render(
-    <React.StrictMode>
-    {/*<React.Fragment>*/}
+    // <React.StrictMode>
+    <React.Fragment>
         <Provider store={store}>
             <App/>
         </Provider>
-    {/*</React.Fragment>,*/}
-    </React.StrictMode>,
+    </React.Fragment>,
+    // </React.StrictMode>,
     document.getElementById('root')
 );

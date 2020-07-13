@@ -43,7 +43,7 @@ export const taskReducer = (state = initialState, action) => {
             // console.log(action.payload);
             return {
                 ...state,
-                tasks: (action.payload.id) ?
+                tasks: (action.payload.id && action.payload.stage !== state.stage) ?
                     state.tasks.filter(task => (task.id !== action.payload.id))
                     : state.tasks,
             };

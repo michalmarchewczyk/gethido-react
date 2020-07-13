@@ -38,10 +38,10 @@ const useStyles = makeStyles((theme) => ({
         },
         '@media (min-width: 960px)': {
             '&:hover $name': {
-                maxWidth: 'calc(100% - 400px)',
+                maxWidth: 'calc(100% - 500px)',
             },
             '&:hover $desc': {
-                maxWidth: 'calc(100% - 400px)',
+                maxWidth: 'calc(100% - 500px)',
             }
         }
     },
@@ -74,6 +74,8 @@ const useStyles = makeStyles((theme) => ({
 
 function TaskItem(props) {
     const {task} = props;
+    
+    // console.log(props.allOptions);
     
     const classes = useStyles();
     
@@ -133,7 +135,15 @@ function TaskItem(props) {
                             <MoreVertIcon/>
                         </IconButton>
                     ) : (<>
-                        {task.stage === 'inbox' ? (<>
+                        {(task.stage === 'inbox' || props.allOptions === true) ? (<>
+                            {props.allOptions === true ? (<>
+                                <IconButton onClick={() => handleMove('inbox')}>
+                                    <InboxIcon/>
+                                </IconButton>
+                                <IconButton onClick={() => handleMove('completed')}>
+                                    <DoneIcon/>
+                                </IconButton>
+                            </>) : (<></>)}
                             <IconButton onClick={() => handleMove('next')}>
                                 <ForwardIcon/>
                             </IconButton>
@@ -146,9 +156,15 @@ function TaskItem(props) {
                             <IconButton onClick={() => handleMove('projects')}>
                                 <AccountTreeIcon/>
                             </IconButton>
-                            <IconButton onClick={() => handleMove('trash')}>
-                                <DeleteIcon/>
-                            </IconButton>
+                            {(task.stage === 'trash') ? (<>
+                                <IconButton onClick={() => handleDelete()}>
+                                    <DeleteForeverIcon/>
+                                </IconButton>
+                            </>) : (<>
+                                <IconButton onClick={() => handleMove('trash')}>
+                                    <DeleteIcon/>
+                                </IconButton>
+                            </>)}
                             <IconButton onClick={() => handleMove('someday')}>
                                 <BookmarkIcon/>
                             </IconButton>
@@ -189,6 +205,7 @@ function TaskItem(props) {
 const mapStateToProps = (state, ownProps) => ({
     // tasks: state.task.tasks,
     task: state.task.tasks[ownProps.id],
+    allOptions: state.user.user.settings.allOptions,
 });
 
 export default connect(mapStateToProps, {updateTask, moveTask, deleteTask})(TaskItem);

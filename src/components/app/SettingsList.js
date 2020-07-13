@@ -81,10 +81,10 @@ function SettingsList(props) {
                                 <ListItemText primary='Automatically move tasks from calendar to inbox'/>
                                 <ListItemSecondaryAction>
                                     <Switch edge='end'
-                                        checked={!!(props.settings && props.settings.autoCalendar)}
-                                        onChange={() => {
-                                            props.changeSettings({autoCalendar: !(props.settings && props.settings.autoCalendar)})
-                                        }}
+                                            checked={!!(props.settings && props.settings.autoCalendar)}
+                                            onChange={() => {
+                                                props.changeSettings({autoCalendar: !(props.settings && props.settings.autoCalendar)})
+                                            }}
                                     />
                                 </ListItemSecondaryAction>
                             </ListItem>
@@ -92,10 +92,10 @@ function SettingsList(props) {
                                 <ListItemText primary='Show all options when moving tasks from certain stages'/>
                                 <ListItemSecondaryAction>
                                     <Switch edge='end'
-                                        checked={!!(props.settings && props.settings.allOptions)}
-                                        onChange={() => {
-                                            props.changeSettings({allOptions: !(props.settings && props.settings.allOptions)})
-                                        }}
+                                            checked={!!(props.settings && props.settings.allOptions)}
+                                            onChange={() => {
+                                                props.changeSettings({allOptions: !(props.settings && props.settings.allOptions)})
+                                            }}
                                     />
                                 </ListItemSecondaryAction>
                             </ListItem>

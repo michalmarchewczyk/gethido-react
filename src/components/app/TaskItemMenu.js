@@ -64,7 +64,21 @@ function TaskItemMenu(props) {
                 className={classes.name}>{(task) ? task.name : ''}</span>&nbsp;to</DialogTitle>
             <List dense>
                 {(task) ? (<>
-                    {(task.stage === 'inbox') ? (<>
+                    {(task.stage === 'inbox' || props.allOptions === true) ? (<>
+                        {props.allOptions === true ? (<>
+                            <ListItem button onClick={() => handleListItemClick('inbox')}>
+                                <ListItemIcon>
+                                    <InboxIcon/>
+                                </ListItemIcon>
+                                <ListItemText primary='Inbox'/>
+                            </ListItem>
+                            <ListItem button onClick={() => handleListItemClick('completed')}>
+                                <ListItemIcon>
+                                    <DoneIcon/>
+                                </ListItemIcon>
+                                <ListItemText primary='Completed'/>
+                            </ListItem>
+                        </>) : (<></>)}
                         <ListItem button onClick={() => handleListItemClick('next')}>
                             <ListItemIcon>
                                 <ForwardIcon/>
@@ -89,12 +103,21 @@ function TaskItemMenu(props) {
                             </ListItemIcon>
                             <ListItemText primary='Projects'/>
                         </ListItem>
-                        <ListItem button onClick={() => handleListItemClick('trash')}>
-                            <ListItemIcon>
-                                <DeleteIcon/>
-                            </ListItemIcon>
-                            <ListItemText primary='Trash'/>
-                        </ListItem>
+                        {(task.stage === 'trash') ? (<>
+                            <ListItem button onClick={() => handleDelete()}>
+                                <ListItemIcon>
+                                    <DeleteForeverIcon/>
+                                </ListItemIcon>
+                                <ListItemText primary='Delete forever'/>
+                            </ListItem>
+                        </>) : (<>
+                            <ListItem button onClick={() => handleListItemClick('trash')}>
+                                <ListItemIcon>
+                                    <DeleteIcon/>
+                                </ListItemIcon>
+                                <ListItemText primary='Trash'/>
+                            </ListItem>
+                        </>)}
                         <ListItem button onClick={() => handleListItemClick('someday')}>
                             <ListItemIcon>
                                 <BookmarkIcon/>
@@ -147,4 +170,9 @@ function TaskItemMenu(props) {
     );
 }
 
-export default connect(null, {moveTask, deleteTask})(TaskItemMenu);
+
+const mapStateToProps = state => ({
+    allOptions: state.user.user.settings.allOptions,
+});
+
+export default connect(mapStateToProps, {moveTask, deleteTask})(TaskItemMenu);
