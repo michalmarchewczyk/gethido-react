@@ -1,8 +1,19 @@
 import React, {useState} from 'react';
 import {makeStyles} from '@material-ui/core/styles';
-import {AppBar, Toolbar, Typography, IconButton, MenuItem, Menu, Divider, Box} from '@material-ui/core';
-import {Menu as MenuIcon, MoreVert as MoreVertIcon} from '@material-ui/icons';
-import {Link} from 'react-router-dom';
+import {
+    AppBar,
+    Toolbar,
+    Typography,
+    IconButton,
+    MenuItem,
+    Menu,
+    Divider,
+    Box,
+    InputBase,
+    fade
+} from '@material-ui/core';
+import {Menu as MenuIcon, MoreVert as MoreVertIcon, Search as SearchIcon} from '@material-ui/icons';
+import {Link, withRouter} from 'react-router-dom';
 
 import {connect} from 'react-redux';
 
@@ -12,11 +23,49 @@ const useStyles = makeStyles((theme) => ({
         marginRight: theme.spacing(2),
     },
     title: {
-        flexGrow: 1,
+        // flexGrow: 1,
     },
     appBar: {
         zIndex: theme.zIndex.appBar,
     },
+    search: {
+        position: 'relative',
+        borderRadius: theme.shape.borderRadius,
+        backgroundColor: fade(theme.palette.common.white, 0.15),
+        '&:hover': {
+            backgroundColor: fade(theme.palette.common.white, 0.25),
+        },
+        marginRight: theme.spacing(2),
+        marginLeft: theme.spacing(3),
+        width: 'auto',
+        [theme.breakpoints.down('xs')]: {
+            width: '100%',
+            marginRight: theme.spacing(7),
+        },
+    },
+    searchIcon: {
+        padding: theme.spacing(0, 2),
+        height: '100%',
+        position: 'absolute',
+        pointerEvents: 'none',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    input: {
+        padding: theme.spacing(1, 1, 1, 0),
+        paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
+        transition: theme.transitions.create('width'),
+        width: '20ch',
+        color: theme.palette.common.white,
+        [theme.breakpoints.down('xs')]: {
+            width: '100%',
+        },
+    },
+    menu: {
+        position: 'absolute',
+        right: theme.spacing(3),
+    }
 }));
 
 function TopBar(props) {
@@ -33,6 +82,13 @@ function TopBar(props) {
         setAnchorEl(null);
     };
     
+    const [search, setSearch] = useState('');
+    
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        props.history.push(`/app/search/${search}`);
+    };
+    
     return (
         <React.Fragment>
             <AppBar position='fixed' className={classes.appBar}>
@@ -45,7 +101,22 @@ function TopBar(props) {
                         {/*{`GeThiDo - ${props.stage.charAt(0).toUpperCase() + props.stage.slice(1)}`}*/}
                         {props.stage.charAt(0).toUpperCase() + props.stage.slice(1)}
                     </Typography>
-                    <IconButton edge='end' onClick={handleMenu} color='inherit'>
+                    <div className={classes.search}>
+                        <div className={classes.searchIcon}>
+                            <SearchIcon />
+                        </div>
+                        <form onSubmit={handleSubmit}>
+                        <InputBase
+                            placeholder="Search…"
+                            classes={{
+                                input: classes.input,
+                            }}
+                            value={search}
+                            onChange={(e) => setSearch(e.target.value)}
+                        />
+                        </form>
+                    </div>
+                    <IconButton edge='end' onClick={handleMenu} color='inherit' className={classes.menu}>
                         <MoreVertIcon/>
                     </IconButton>
                     <Menu
@@ -56,7 +127,6 @@ function TopBar(props) {
                         open={open}
                         onClose={handleClose}
                     >
-                        {/*<MenuItem onClick={handleClose}>{props.user.username} - profile</MenuItem>*/}
                         <Link to='/app/profile'>
                             <MenuItem onClick={handleClose}>My account</MenuItem>
                         </Link>
@@ -82,4 +152,4 @@ const mapStateToProps = state => ({
     user: state.user.user,
 });
 
-export default connect(mapStateToProps, {})(TopBar);
+export default connect(mapStateToProps, {})(withRouter(TopBar));

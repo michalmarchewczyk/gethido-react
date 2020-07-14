@@ -7,12 +7,13 @@ import {
 import {makeStyles} from '@material-ui/core/styles';
 
 import {connect} from 'react-redux';
-import {getTasks} from '../../actions/taskActions';
+import {getTasks, searchTasks} from '../../actions/taskActions';
 
 import useWindowSize from '../hooks/useWindowSize';
 import TaskItemMenu from './TaskItemMenu';
 import TaskAdd from './TaskAdd';
 import TasksList from './TasksList';
+import {useParams} from 'react-router-dom';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -23,6 +24,7 @@ const useStyles = makeStyles((theme) => ({
         background: theme.palette.background.paper,
         borderRadius: theme.shape.borderRadius,
     },
+    list: {},
     outer: {
         width: `calc(100% + ${theme.spacing(3) * 2}px)`,
         marginLeft: -1 * theme.spacing(3),
@@ -57,7 +59,9 @@ const useStyles = makeStyles((theme) => ({
 
 
 function Tasks(props) {
-    let {stage, setStage, getTasks} = props;
+    let {stage, setStage, getTasks, search, searchTasks} = props;
+    let {s} = useParams();
+    if(search) stage = 'search';
     
     useDocumentTitle(stage.charAt(0).toUpperCase() + stage.slice(1));
     
@@ -66,8 +70,12 @@ function Tasks(props) {
     }, [stage, setStage]);
     
     useEffect(() => {
-        getTasks({stage: stage});
-    }, [stage, getTasks]);
+        if(search){
+            searchTasks({s: s});
+        }else {
+            getTasks({stage: stage});
+        }
+    }, [stage, getTasks, searchTasks, search, s]);
     
     const classes = useStyles();
     
@@ -105,7 +113,7 @@ function Tasks(props) {
     return (
         <div>
             <TasksList handleClickOpen={handleClickOpen} setTask={setTask} listHeight={listHeight} stage={stage}
-                       innerRef={innerRef} outerRef={outerRef}/>
+                       innerRef={innerRef} outerRef={outerRef} className={classes.list}/>
             <TaskItemMenu open={open} onClose={handleClose} task={task}/>
             {stage === 'inbox' ? (
                 <TaskAdd/>
@@ -119,4 +127,4 @@ const mapStateToProps = state => ({
     tasksStage: state.task.stage,
 });
 
-export default connect(mapStateToProps, {getTasks})(Tasks);
+export default connect(mapStateToProps, {getTasks, searchTasks})(Tasks);

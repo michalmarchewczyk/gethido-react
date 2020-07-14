@@ -29,6 +29,15 @@ export const getTask = ({id}) => async dispatch => {
 };
 
 
+export const searchTasks = ({s}) => async dispatch => {
+    let data = await TaskService.search({s});
+    dispatch({
+        type: GET_TASKS,
+        payload: {data, stage: 'search'}
+    });
+};
+
+
 export const createTask = ({name, description}) => async dispatch => {
     let data = await TaskService.create({name, description});
     dispatch({

@@ -30,6 +30,20 @@ const TaskService = {
             })
     },
     
+    search: async ({s}) => {
+        return fetch(`${API_URL}/tasks/search/${s}`, {
+            method: 'GET',
+            credentials: 'include',
+        })
+            .then(res => res.json())
+            .then(data => {
+                return data;
+            })
+            .catch(err => {
+                return false;
+            })
+    },
+    
     create: async ({name, description}) => {
         return fetch(`${API_URL}/tasks/`, {
             method: 'POST',

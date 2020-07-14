@@ -3,34 +3,36 @@ import {FixedSizeList} from 'react-window';
 import TaskItem from './TaskItem';
 
 import {connect} from 'react-redux';
-import {makeStyles} from '@material-ui/core/styles';
 
-
-const useStyles = makeStyles((theme) => ({
-    item: {
-        // marginTop: theme.spacing(3),
-    }
-}));
+import {Typography, Paper, Box} from '@material-ui/core';
 
 
 const TasksList = React.memo((props) => {
 // const TasksList = (props) => {
     
-    const classes = useStyles();
-    
     const renderRow = ({index, style}) => {
         return (
-            <TaskItem id={index} key={index} style={style} handleMenu={props.handleClickOpen} setTask={props.setTask} className={classes.item}/>
+            <TaskItem id={index} key={index} style={style} handleMenu={props.handleClickOpen} setTask={props.setTask}/>
         );
     };
     
     return (
-        <div>
-            {/*<FixedSizeList height={props.listHeight} itemCount={props.tasksLength} itemSize={64} innerRef={props.innerRef} outerRef={props.outerRef}>*/}
-            <FixedSizeList height={props.listHeight} itemCount={props.tasksLength} itemSize={64} innerElementType={props.innerRef} outerElementType={props.outerRef}>
-            {/*<FixedSizeList height={props.listHeight} itemCount={props.tasksLength} itemSize={64} innerElementType={props.innerRef} outerRef={props.outerRef.ref}>*/}
-                {renderRow}
-            </FixedSizeList>
+        <div className={props.className}>
+            {(props.tasksLength >= 1)? (
+                <FixedSizeList height={props.listHeight} itemCount={props.tasksLength} itemSize={64} innerElementType={props.innerRef} outerElementType={props.outerRef}>
+                    {renderRow}
+                </FixedSizeList>
+            ) : (
+                <Box my={3}>
+                    <Paper>
+                        <Box p={4}>
+                            <Typography variant='h3' component='p' color='textSecondary' align='center'>
+                                No tasks
+                            </Typography>
+                        </Box>
+                    </Paper>
+                </Box>
+            )}
         </div>
     );
 }, (prevProps, nextProps) => {
@@ -38,7 +40,9 @@ const TasksList = React.memo((props) => {
         && prevProps.tasksStage === nextProps.tasksStage
         && prevProps.listHeight === nextProps.listHeight
         && prevProps.stage === nextProps.stage
-        && prevProps.innerRef === nextProps.innerRef;
+        && prevProps.className === nextProps.className
+        // && prevProps.innerRef === nextProps.innerRef;
+        // && prevProps.outerRef === nextProps.outerRef;
 });
 
 
