@@ -24,8 +24,6 @@ const TasksList = React.memo((props) => {
         );
     };
     
-    console.log(props.outerRef);
-    
     return (
         <div>
             {/*<FixedSizeList height={props.listHeight} itemCount={props.tasksLength} itemSize={64} innerRef={props.innerRef} outerRef={props.outerRef}>*/}

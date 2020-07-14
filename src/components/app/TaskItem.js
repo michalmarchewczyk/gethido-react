@@ -75,8 +75,6 @@ const useStyles = makeStyles((theme) => ({
 function TaskItem(props) {
     const {task} = props;
     
-    // console.log(props.allOptions);
-    
     const classes = useStyles();
     
     const [completed, setCompleted] = useState(false);
@@ -88,7 +86,11 @@ function TaskItem(props) {
         e.preventDefault();
         e.stopPropagation();
         props.updateTask({id: task.id, completed: !task.completed});
+        if(props.autoCompleted && completed===false){
+            props.moveTask({id: task.id, stage: 'completed'});
+        }
         setCompleted(!completed);
+
     };
     
     useEffect(() => {
@@ -206,6 +208,7 @@ const mapStateToProps = (state, ownProps) => ({
     // tasks: state.task.tasks,
     task: state.task.tasks[ownProps.id],
     allOptions: state.user.user.settings.allOptions,
+    autoCompleted: state.user.user.settings.autoCompleted,
 });
 
 export default connect(mapStateToProps, {updateTask, moveTask, deleteTask})(TaskItem);

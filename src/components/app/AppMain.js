@@ -85,7 +85,7 @@ function AppMain(props) {
                            maxWidth='lg'>
                     <Switch>
                         {['inbox', 'next', 'waiting', 'calendar', 'projects', 'trash', 'someday', 'reference', 'completed'].map(s => (
-                            <Route path={`/app/${s}`}>
+                            <Route key={s} path={`/app/${s}`}>
                                 {/*<Tasks stage={s} setStage={setStage} drawer={drawer}/>*/}
                                 <Tasks stage={s} setStage={setStage}/>
                             </Route>
