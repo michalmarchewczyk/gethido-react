@@ -84,33 +84,12 @@ function AppMain(props) {
                 <Container className={[classes.container, (drawer ? classes.containerOpen : '')].join(' ')}
                            maxWidth='lg'>
                     <Switch>
-                        <Route path='/app/inbox'>
-                            <Tasks stage='inbox' setStage={setStage}/>
-                        </Route>
-                        <Route path='/app/trash'>
-                            <Tasks stage='trash' setStage={setStage}/>
-                        </Route>
-                        <Route path='/app/someday'>
-                            <Tasks stage='someday' setStage={setStage}/>
-                        </Route>
-                        <Route path='/app/reference'>
-                            <Tasks stage='reference' setStage={setStage}/>
-                        </Route>
-                        <Route path='/app/next'>
-                            <Tasks stage='next' setStage={setStage}/>
-                        </Route>
-                        <Route path='/app/waiting'>
-                            <Tasks stage='waiting' setStage={setStage}/>
-                        </Route>
-                        <Route path='/app/projects'>
-                            <Tasks stage='projects' setStage={setStage}/>
-                        </Route>
-                        <Route path='/app/calendar'>
-                            <Tasks stage='calendar' setStage={setStage}/>
-                        </Route>
-                        <Route path='/app/completed'>
-                            <Tasks stage='completed' setStage={setStage}/>
-                        </Route>
+                        {['inbox', 'next', 'waiting', 'calendar', 'projects', 'trash', 'someday', 'reference', 'completed'].map(s => (
+                            <Route path={`/app/${s}`}>
+                                {/*<Tasks stage={s} setStage={setStage} drawer={drawer}/>*/}
+                                <Tasks stage={s} setStage={setStage}/>
+                            </Route>
+                        ))}
                         <Route path='/app/task/edit/:id'>
                             <TaskEdit setStage={setStage}/>
                         </Route>

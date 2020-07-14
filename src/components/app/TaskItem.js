@@ -105,7 +105,7 @@ function TaskItem(props) {
     };
     
     return (
-        <div style={props.style} className={classes.container}>
+        <div style={props.style} className={`${classes.container} ${props.className}`}>
             <ListItem button dense className={classes.item} ContainerComponent='div' onClick={handleChange}>
                 <ListItemIcon>
                     <Checkbox

@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
         position: 'fixed',
         bottom: 0,
         right: 0,
-        margin: theme.spacing(6),
+        margin: theme.spacing(4),
     }
 }));
 
