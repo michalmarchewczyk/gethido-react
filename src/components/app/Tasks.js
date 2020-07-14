@@ -108,7 +108,7 @@ function Tasks(props) {
         <Box ref={ref} id='outer' {...props} className={[classes.outer].join(' ')}/>
     ));
     
-    if (stage !== props.tasksStage) return (<Box my={3}><Paper style={{height: listHeight}}/></Box>);
+    if (stage !== props.tasksStage) return (<Box my={3}><Paper style={{height: 120}}/></Box>);
     
     return (
         <div>

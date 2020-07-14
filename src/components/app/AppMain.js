@@ -17,19 +17,19 @@ import TaskEdit from './TaskEdit';
 
 const useStyles = makeStyles((theme) => ({
     containerDiv: {
-        marginTop: 56,
-        maxHeight: 'calc(100vh - 56px)',
-        height: 'calc(100vh - 56px)',
-        '@media (min-width: 0px) and (orientation: landscape)': {
-            marginTop: 48,
-            maxHeight: 'calc(100vh - 48px)',
-            height: 'calc(100vh - 48px)',
-        },
-        '@media (min-width: 600px)': {
-            marginTop: 64,
-            maxHeight: 'calc(100vh - 64px)',
-            height: 'calc(100vh - 64px)',
-        },
+        marginTop: 64,
+        maxHeight: 'calc(100vh - 64px)',
+        height: 'calc(100vh - 64px)',
+        // '@media (min-width: 0px) and (orientation: landscape)': {
+        //     marginTop: 48,
+        //     maxHeight: 'calc(100vh - 48px)',
+        //     height: 'calc(100vh - 48px)',
+        // },
+        // '@media (min-width: 600px)': {
+        //     marginTop: 64,
+        //     maxHeight: 'calc(100vh - 64px)',
+        //     height: 'calc(100vh - 64px)',
+        // },
         overflow: 'hidden',
         overflowY: 'auto',
     },
@@ -40,6 +40,8 @@ const useStyles = makeStyles((theme) => ({
             marginLeft: 'auto',
         },
         transition: 'margin-left 150ms cubic-bezier(0.4,0,0.6,1)',
+        paddingLeft: theme.spacing(3),
+        paddingRight: theme.spacing(3),
     },
     containerOpen: {
         marginLeft: 220,

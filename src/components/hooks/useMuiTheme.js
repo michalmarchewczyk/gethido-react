@@ -5,6 +5,17 @@ import blue from '@material-ui/core/colors/blue';
 
 
 const themes = {
+    default: {
+        zIndex: {
+            drawer: 1100,
+            appBar: 1200
+        },
+        mixins: {
+            toolbar: {
+                minHeight: '64px !important',
+            }
+        }
+    },
     light: {
         palette: {
             type: 'light',
@@ -13,19 +24,11 @@ const themes = {
                 default: grey[200]
             },
         },
-        zIndex: {
-            drawer: 1100,
-            appBar: 1200
-        }
     },
     dark: {
         palette: {
             type: 'dark',
             secondary: blue,
-        },
-        zIndex: {
-            drawer: 1100,
-            appBar: 1200
         },
     },
     normalFont: {
@@ -43,22 +46,22 @@ const themes = {
 
 export default function useMuiTheme() {
     
-    const [theme, _setTheme] = useState(createMuiTheme({...themes.light, ...themes.normalFont}));
+    const [theme, _setTheme] = useState(createMuiTheme({...themes.default, ...themes.light, ...themes.normalFont}));
     
     const setTheme = useMemo(() => (themeType) => {
         let t;
         switch (themeType) {
             case 'light-normal':
-                 t = createMuiTheme({...themes.light, ...themes.normalFont});
+                 t = createMuiTheme({...themes.default, ...themes.light, ...themes.normalFont});
                  break;
             case 'dark-normal':
-                t = createMuiTheme({...themes.dark, ...themes.normalFont});
+                t = createMuiTheme({...themes.default, ...themes.dark, ...themes.normalFont});
                 break;
             case 'light-large':
-                t = createMuiTheme({...themes.light, ...themes.largeFont});
+                t = createMuiTheme({...themes.default, ...themes.light, ...themes.largeFont});
                 break;
             case 'dark-large':
-                t = createMuiTheme({...themes.dark, ...themes.largeFont});
+                t = createMuiTheme({...themes.default, ...themes.dark, ...themes.largeFont});
                 break;
             default:
                 t = createMuiTheme({...themes.light, ...themes.normalFont});
