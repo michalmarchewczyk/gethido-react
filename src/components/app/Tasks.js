@@ -2,7 +2,8 @@ import React, {forwardRef, useEffect, useState} from 'react';
 import useDocumentTitle from '../hooks/useDocumentTitle';
 import {
     Box,
-    Paper
+    Paper,
+    Container
 } from '@material-ui/core';
 import {makeStyles} from '@material-ui/core/styles';
 
@@ -24,11 +25,11 @@ const useStyles = makeStyles((theme) => ({
         background: theme.palette.background.paper,
         borderRadius: theme.shape.borderRadius,
     },
-    list: {},
     outer: {
-        width: `calc(100% + ${theme.spacing(3) * 2}px)`,
-        marginLeft: -1 * theme.spacing(3),
-        paddingLeft: theme.spacing(3),
+        // width: `calc(100% + ${theme.spacing(3) * 2}px)`,
+        width: '100%',
+        // marginLeft: -1 * theme.spacing(3),
+        // paddingLeft: theme.spacing(3),
     },
     // outerClosed: {
     //     '@media (min-width: 1340px)': {
@@ -47,13 +48,16 @@ const useStyles = makeStyles((theme) => ({
     //     }
     // },
     inner: {
-        position: 'absolute',
+        // position: 'absolute',
+        position: 'relative',
         marginTop: theme.spacing(3),
         marginBottom: theme.spacing(3),
         // marginLeft: theme.spacing(3),
         width: `calc(100% - ${theme.spacing(3) * 2}px) !important`,
         maxWidth: '1232px !important',
         overflow: 'hidden',
+        marginLeft: 'auto',
+        marginRight: 'auto',
     }
 }));
 
@@ -113,19 +117,20 @@ function Tasks(props) {
     const outerRef = forwardRef((props, ref) => (
         // <Box ref={ref} id='outer' {...props} className={[classes.outer, ((drawer)? classes.outerOpen : classes.outerClosed)].join(' ')}/>
         <Box ref={ref} id='outer' {...props} className={[classes.outer].join(' ')}/>
+        // <Container maxWidth='lg' ref={ref} id='outer' {...props} className={[classes.outer].join(' ')}/>
     ));
     
     if (stage !== props.tasksStage) return (<Box my={3}><Paper style={{height: 120}}/></Box>);
     
     return (
-        <div>
+        <React.Fragment>
             <TasksList handleClickOpen={handleClickOpen} setTask={setTask} listHeight={listHeight} stage={stage}
-                       innerRef={innerRef} outerRef={outerRef} className={classes.list}/>
+                       innerRef={innerRef} outerRef={outerRef} className={props.listClass}/>
             <TaskItemMenu open={open} onClose={handleClose} task={task}/>
             {stage === 'inbox' ? (
                 <TaskAdd/>
             ) : (<></>)}
-        </div>
+        </React.Fragment>
     );
 }
 
