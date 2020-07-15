@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import {getTask} from '../../actions/taskActions';
 
 import useDocumentTitle from '../hooks/useDocumentTitle';
-import {Link, useParams} from 'react-router-dom';
+import {Link, useParams, withRouter} from 'react-router-dom';
 import {Box, Button, Divider, Paper, Typography, Chip} from '@material-ui/core';
 import {makeStyles} from '@material-ui/core/styles';
 
@@ -52,6 +52,7 @@ function TaskView(props) {
     
     const onTag = (tag) => {
         console.log(tag);
+        props.history.push(`/app/tag/${tag.toLowerCase()}`);
     };
     
     return (
@@ -138,4 +139,4 @@ const mapStateToProps = state => ({
     currentTask: state.task.currentTask,
 });
 
-export default connect(mapStateToProps, {getTask})(TaskView);
+export default connect(mapStateToProps, {getTask})(withRouter(TaskView));

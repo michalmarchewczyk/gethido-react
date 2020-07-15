@@ -7,7 +7,7 @@ import {
 import {makeStyles} from '@material-ui/core/styles';
 
 import {connect} from 'react-redux';
-import {getTasks, searchTasks} from '../../actions/taskActions';
+import {getTasks, searchTasks, getTagTasks} from '../../actions/taskActions';
 
 import useWindowSize from '../hooks/useWindowSize';
 import TaskItemMenu from './TaskItemMenu';
@@ -59,23 +59,30 @@ const useStyles = makeStyles((theme) => ({
 
 
 function Tasks(props) {
-    let {stage, setStage, getTasks, search, searchTasks} = props;
-    let {s} = useParams();
-    if(search) stage = 'search';
+    let {stage, setStage, getTasks, search, searchTasks, tag, getTagTasks} = props;
+    let {s, t} = useParams();
+    if (search) stage = 'search';
+    if (tag) stage = 'tag';
     
     useDocumentTitle(stage.charAt(0).toUpperCase() + stage.slice(1));
     
     useEffect(() => {
-        setStage(stage);
-    }, [stage, setStage]);
+        if(tag){
+            setStage(`Tag "${t.toLowerCase()}"`);
+        }else{
+            setStage(stage);
+        }
+    }, [stage, setStage, tag, t]);
     
     useEffect(() => {
-        if(search){
+        if (search) {
             searchTasks({s: s});
-        }else {
+        } else if (tag) {
+            getTagTasks({tag: t});
+        } else {
             getTasks({stage: stage});
         }
-    }, [stage, getTasks, searchTasks, search, s]);
+    }, [stage, getTasks, searchTasks, search, s, tag, t, getTagTasks]);
     
     const classes = useStyles();
     
@@ -127,4 +134,4 @@ const mapStateToProps = state => ({
     tasksStage: state.task.stage,
 });
 
-export default connect(mapStateToProps, {getTasks, searchTasks})(Tasks);
+export default connect(mapStateToProps, {getTasks, searchTasks, getTagTasks})(Tasks);

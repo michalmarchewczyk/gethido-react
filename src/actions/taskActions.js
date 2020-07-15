@@ -87,6 +87,6 @@ export const getTagTasks = ({tag}) => async dispatch => {
     let data = await TaskService.getTag({tag});
     dispatch({
         type: GET_TAG_TASKS,
-        payload: data
+        payload: {data, stage: 'tag'}
     });
 };

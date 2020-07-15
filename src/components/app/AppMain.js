@@ -95,6 +95,9 @@ function AppMain(props) {
                         <Route path='/app/search/:s'>
                             <Tasks setStage={setStage} search/>
                         </Route>
+                        <Route path='/app/tag/:t'>
+                            <Tasks setStage={setStage} tag/>
+                        </Route>
                         <Route path='/app/task/edit/:id'>
                             <TaskEdit setStage={setStage}/>
                         </Route>

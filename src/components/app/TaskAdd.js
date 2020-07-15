@@ -36,7 +36,7 @@ function TaskAdd(props) {
     
     return (
         <React.Fragment>
-            <Fab color='primary' className={classes.fab} onClick={() => {
+            <Fab color='secondary' className={classes.fab} onClick={() => {
                 setOpen(true)
             }}>
                 <AddIcon/>

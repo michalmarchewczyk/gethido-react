@@ -74,8 +74,12 @@ export const taskReducer = (state = initialState, action) => {
                 currentTask: (action.payload.id) ? action.payload : state.currentTask,
             };
         case GET_TAG_TASKS:
+            // console.log(action.payload);
             return {
-                ...state
+                ...state,
+                stage: action.payload.stage,
+                tasks: (action.payload.data[0]) ? action.payload.data : [],
+                currentTask: {},
             };
         default:
             return state
