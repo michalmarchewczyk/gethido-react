@@ -49,7 +49,7 @@ const TaskService = {
             method: 'POST',
             credentials: 'include',
             headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({name, description, stage: 'inbox', source: 'WebApp'})
+            body: JSON.stringify({name, description, stage: 'inbox', source: 'Web app'})
         })
             .then(res => res.json())
             .then(data => {
@@ -76,12 +76,12 @@ const TaskService = {
             })
     },
     
-    update: async ({id, name, description, completed}) => {
+    update: async ({id, name, description, completed, calDate}) => {
         return fetch(`${API_URL}/tasks/${id}`, {
             method: 'PUT',
             credentials: 'include',
             headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({name, description, completed}),
+            body: JSON.stringify({name, description, completed, calDate}),
         })
             .then(res => res.json())
             .then(data => {

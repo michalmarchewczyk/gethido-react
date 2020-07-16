@@ -66,7 +66,7 @@ function TaskViewEmail(props) {
                         Date
                     </Typography>
                     <Typography variant='body1' component='span'>
-                        {moment(message.date).format('MMMM Do YYYY, h:mm a')}
+                        {moment(message.date).format('YYYY-MM-DD HH:mm')}
                     </Typography>
                 </Box>
             </DialogContent>

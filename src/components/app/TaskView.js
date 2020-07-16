@@ -81,9 +81,20 @@ function TaskView(props) {
                                 Created
                             </Typography>
                             <Typography variant='body1' component='span'>
-                                {moment(currentTask.date).format('MMMM Do YYYY, h:mm a')}
+                                {moment(currentTask.date).format('YYYY-MM-DD HH:mm')}
                             </Typography>
                         </Box>
+                        {(currentTask.stage === 'calendar')? (
+                            <Box>
+                                <Typography variant='subtitle1' color='textSecondary' className={classes.subtitle}>
+                                    Date
+                                </Typography>
+                                <Typography variant='body1' component='span'>
+                                    {currentTask.calDate?
+                                        moment(currentTask.calDate).format('YYYY-MM-DD HH:mm') : 'Not set'}
+                                </Typography>
+                            </Box>
+                        ) : (<></>) }
                         <Box>
                             <Typography variant='subtitle1' color='textSecondary' className={classes.subtitle}>
                                 Stage
