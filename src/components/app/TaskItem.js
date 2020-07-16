@@ -28,6 +28,7 @@ import {
 
 import {connect} from 'react-redux';
 import {updateTask, moveTask, deleteTask} from '../../actions/taskActions';
+import moment from 'moment';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -86,11 +87,11 @@ function TaskItem(props) {
         e.preventDefault();
         e.stopPropagation();
         props.updateTask({id: task.id, completed: !task.completed});
-        if(props.autoCompleted && completed===false){
+        if (props.autoCompleted && completed === false) {
             props.moveTask({id: task.id, stage: 'completed'});
         }
         setCompleted(!completed);
-
+        
     };
     
     useEffect(() => {
@@ -124,7 +125,7 @@ function TaskItem(props) {
                     }
                     secondary={
                         <Typography className={classes.desc} color='textSecondary' variant='body2'>
-                            {task.description}
+                            {(task.stage === 'calendar') ? (task.calDate ? moment(task.calDate).format('YYYY-MM-DD HH:mm - ') : 'Not set - ') : ''}{task.description}
                         </Typography>
                     }
                 />

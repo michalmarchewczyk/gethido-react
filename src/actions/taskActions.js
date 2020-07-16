@@ -13,6 +13,19 @@ import TaskService from '../services/task.service';
 
 export const getTasks = ({stage}) => async dispatch => {
     let data = await TaskService.getTasks({stage});
+    if (stage === 'calendar') {
+        if (data[0]) {
+            data.sort((a, b) => {
+                return new Date(a.calDate) - new Date(b.calDate);
+            })
+        }
+    } else {
+        if (data[0]) {
+            data.sort((a, b) => {
+                return new Date(b.date) - new Date(a.date);
+            })
+        }
+    }
     dispatch({
         type: GET_TASKS,
         payload: {data, stage},
@@ -31,6 +44,11 @@ export const getTask = ({id}) => async dispatch => {
 
 export const searchTasks = ({s}) => async dispatch => {
     let data = await TaskService.search({s});
+    if (data[0]) {
+        data.sort((a, b) => {
+            return new Date(b.date) - new Date(a.date);
+        })
+    }
     dispatch({
         type: GET_TASKS,
         payload: {data, stage: 'search'}
@@ -85,6 +103,11 @@ export const tagTask = ({id, tags}) => async dispatch => {
 
 export const getTagTasks = ({tag}) => async dispatch => {
     let data = await TaskService.getTag({tag});
+    if (data[0]) {
+        data.sort((a, b) => {
+            return new Date(b.date) - new Date(a.date);
+        })
+    }
     dispatch({
         type: GET_TAG_TASKS,
         payload: {data, stage: 'tag'}
