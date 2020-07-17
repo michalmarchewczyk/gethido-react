@@ -99,6 +99,17 @@ function SettingsList(props) {
                                     />
                                 </ListItemSecondaryAction>
                             </ListItem>
+                            <ListItem>
+                                <ListItemText primary='Open task on click instead of checking it'/>
+                                <ListItemSecondaryAction>
+                                    <Switch edge='end'
+                                            checked={!!(props.settings && props.settings.taskLink)}
+                                            onChange={() => {
+                                                props.changeSettings({taskLink: !(props.settings && props.settings.taskLink)})
+                                            }}
+                                    />
+                                </ListItemSecondaryAction>
+                            </ListItem>
                         </List>
                     </Box>
                     <Divider/>

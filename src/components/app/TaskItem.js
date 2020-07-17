@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Link} from 'react-router-dom';
+import {Link, withRouter} from 'react-router-dom';
 import {
     ListItem,
     ListItemText,
@@ -76,6 +76,8 @@ const useStyles = makeStyles((theme) => ({
 function TaskItem(props) {
     const {task} = props;
     
+    const {taskLink} = props;
+    
     const classes = useStyles();
     
     const [completed, setCompleted] = useState(false);
@@ -86,12 +88,21 @@ function TaskItem(props) {
     const handleChange = (e) => {
         e.preventDefault();
         e.stopPropagation();
+        if(taskLink){
+            props.history.push(`/app/task/${task.id}`);
+        }else{
+            handleCheck(e);
+        }
+    };
+    
+    const handleCheck = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
         props.updateTask({id: task.id, completed: !task.completed});
         if (props.autoCompleted && completed === false) {
             props.moveTask({id: task.id, stage: 'completed'});
         }
         setCompleted(!completed);
-        
     };
     
     useEffect(() => {
@@ -110,7 +121,9 @@ function TaskItem(props) {
     return (
         <div style={props.style} className={`${classes.container} ${props.className}`}>
             <ListItem button dense className={classes.item} ContainerComponent='div' onClick={handleChange}>
-                <ListItemIcon>
+                <ListItemIcon onClick={(e) => {
+                    handleCheck(e);
+                }}>
                     <Checkbox
                         checked={completed}
                         color='secondary'
@@ -125,7 +138,7 @@ function TaskItem(props) {
                     }
                     secondary={
                         <Typography className={classes.desc} color='textSecondary' variant='body2'>
-                            {(task.stage === 'calendar') ? (task.calDate ? moment(task.calDate).format('YYYY-MM-DD HH:mm - ') : 'Not set - ') : ''}{task.description}
+                            {(task.stage === 'calendar') ? (task.calDate ? moment(task.calDate).format('YYYY-MM-DD - ') : 'Not set - ') : ''}{task.description}
                         </Typography>
                     }
                 />
@@ -208,8 +221,10 @@ function TaskItem(props) {
 const mapStateToProps = (state, ownProps) => ({
     // tasks: state.task.tasks,
     task: state.task.tasks[ownProps.id],
-    allOptions: state.user.user.settings.allOptions,
-    autoCompleted: state.user.user.settings.autoCompleted,
+    allOptions: state.user.user?.settings?.allOptions,
+    autoCompleted: state.user.user?.settings?.autoCompleted,
+    taskLink: state.user.user?.settings?.taskLink,
+    
 });
 
-export default connect(mapStateToProps, {updateTask, moveTask, deleteTask})(TaskItem);
+export default connect(mapStateToProps, {updateTask, moveTask, deleteTask})(withRouter(TaskItem));

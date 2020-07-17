@@ -91,7 +91,7 @@ function TaskView(props) {
                                 </Typography>
                                 <Typography variant='body1' component='span'>
                                     {currentTask.calDate?
-                                        moment(currentTask.calDate).format('YYYY-MM-DD HH:mm') : 'Not set'}
+                                        moment(currentTask.calDate).format('YYYY-MM-DD') : 'Not set'}
                                 </Typography>
                             </Box>
                         ) : (<></>) }
