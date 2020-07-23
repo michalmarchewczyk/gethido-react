@@ -37,10 +37,61 @@ function Home() {
                         <Typography variant='h3' component='h2'>
                             About
                         </Typography>
-                        <br/>
                         <Typography variant='body1'>
                             GeThiDo is a web application time management tool based on <cite>Getting Things Done</cite> method by David Allen.<br/>
                             It enables you to easily collect and manage your tasks.
+                        </Typography>
+                        <Typography variant='h4' component='h3'>
+                            How it works
+                        </Typography>
+                        <Typography variant='body1'>
+                            Working with Getting Things Done method requires few steps:
+                            <ol>
+                                <li>
+                                    Every task, message, email is collected in the Inbox
+                                </li>
+                                <li>
+                                    You move every item from inbox to another category:
+                                        <ul>
+                                            <li>If it's not actionable (doesn't require any action): delete it (Trash), incubate it for later (Someday) or save it in Reference</li>
+                                            <li>If it's actionable, but require multiple steps, then move it to Projects</li>
+                                            <li>If it's an action somebody else has to do, or can be delegate, move it to Waiting</li>
+                                            <li>If it's an action for specific day, move it to Calendar, and set this tasks date</li>
+                                            <li>If it's an action that should be done as soon as possible, move it to Next</li>
+                                        </ul>
+                                </li>
+                                <li>
+                                    If there any new projects, you should review them for actions
+                                </li>
+                                <li>
+                                    After you complete action, move it to Completed (or set GeThiDo to do it automatically)
+                                </li>
+                            </ol>
+                        </Typography>
+                        <Typography variant='h4' component='h3'>
+                            Getting started
+                        </Typography>
+                        <Typography variant='body1'>
+                            GeThiDo makes it easy to start with Getting Things Done method immediately.
+                            <ol>
+                                <li>Sign up with your email</li>
+                                <li>Login with your username</li>
+                                <li>Start working</li>
+                            </ol>
+                        </Typography>
+                        <Typography variant='h4' component='h3'>
+                            Setting up email collection
+                        </Typography>
+                        <Typography variant='body1'>
+                            GeThiDo enables you to collect emails using custom generated email addresses.
+                            <br/>
+                            To setup email collection:
+                            <ol>
+                                <li>Go to settings</li>
+                                <li>Generate new email address</li>
+                                <li>Configure your email client to automatically redirect emails to this address (or just forward manually emails you want to process)</li>
+                            </ol>
+                            <b>Remember, GeThiDo is not an email client, and you should not depend on it storing your emails</b>
                         </Typography>
                     </section>
                 </Container>
