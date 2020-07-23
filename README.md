@@ -4,7 +4,7 @@
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/michalmarchewczyk/gethido-react)
 ![GitHub last commit](https://img.shields.io/github/last-commit/michalmarchewczyk/gethido-react)
 
-GeThiDo-React is time management web app using [GeThiDo-API](github.com/michalmarchewczyk/gethido-api).
+GeThiDo-React is time management web app using [GeThiDo-API](https://github.com/michalmarchewczyk/gethido-api).
 
 ## Technologies
 Project is created with:
