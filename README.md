@@ -12,7 +12,7 @@ Project is created with:
 - Redux
 - Material-UI
 
-##Build and serve
+## Build and serve
 1. Install dependencies
     ```
     npm install
