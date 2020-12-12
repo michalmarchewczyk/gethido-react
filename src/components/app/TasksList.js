@@ -23,7 +23,7 @@ const TasksList = React.memo((props) => {
                     {renderRow}
                 </FixedSizeList>
             ) : (
-                <Box my={3}>
+                <Box m={3}>
                     <Paper>
                         <Box p={4}>
                             <Typography variant='h3' component='p' color='textSecondary' align='center'>
