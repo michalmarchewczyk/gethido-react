@@ -24,7 +24,7 @@ const TasksList = React.memo((props) => {
                 </FixedSizeList>
             ) : (
                 <Box m={3}>
-                    <Paper>
+                    <Paper style={{maxWidth: '1232px', marginLeft: 'auto', marginRight: 'auto'}}>
                         <Box p={4}>
                             <Typography variant='h3' component='p' color='textSecondary' align='center'>
                                 No tasks

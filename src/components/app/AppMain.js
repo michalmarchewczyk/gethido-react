@@ -41,8 +41,8 @@ const useStyles = makeStyles((theme) => ({
             // transition: 'margin-left 150ms cubic-bezier(0.4,0,0.6,1)',
             transition: 'margin-left 150ms cubic-bezier(0.4,0,0.6,1), width 150ms cubic-bezier(0.4,0,0.6,1)',
             '@media (min-width: 1400px)': {
-                marginLeft: '0',
-                width: '100vw',
+                marginLeft: '60px',
+                width: 'calc(100vw - 60px)',
             },
         }
     },
